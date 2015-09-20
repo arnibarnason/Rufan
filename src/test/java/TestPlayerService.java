@@ -2,6 +2,7 @@ import is.ru.honn.rufan.domain.Country;
 import is.ru.honn.rufan.domain.Player;
 import is.ru.honn.rufan.domain.Position;
 import is.ru.honn.rufan.service.PlayerService;
+import is.ru.honn.rufan.service.ServiceException;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +10,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.xml.ws.Service;
 import java.util.*;
 
 
@@ -27,14 +30,14 @@ public class TestPlayerService extends TestCase
     private PlayerService service;
 
     @Before
-    private void setup()
+    public void setup()
     {
 
     }
 
+    //@Test(expected = ServiceException.class)
     @Test
-    public void testPlayer()
-    {
+    public void testPlayer() throws ServiceException {
 
         //     public Position(int positionId, String name, String abbreviation, int sequence)
         Position pos = new Position(1, "midfielder", "mid", 3);
@@ -44,12 +47,32 @@ public class TestPlayerService extends TestCase
         }};
 
         Country country = new Country(1, "Denmark", "DK");
-        Player testPlayer = new Player(1, "Arni", "Arnason", 193, 97, newDate(1995, 11, 12), country, 1, PLAYER1_POSITIONS);
+        Player testPlayer = new Player(0, "Arni", "Arnason", 193, 97, newDate(1995, 11, 12), country, 1, PLAYER1_POSITIONS);
+        Player testPlayer2 = new Player(1, "Arni", "Arnason", 193, 97, null, null, 1, null);
 
+        service.addPlayer(testPlayer);
+        service.addPlayer(testPlayer2);
+        Player playerNew = service.getPlayer(0);
+        Player playerNew2 = service.getPlayer(1);
+        assertSame(playerNew, testPlayer);
+        assertSame(playerNew2, testPlayer2);
 
     }
-    // public Player(int playerId, String firstName, String lastName, int height, int weight, Date birthDate, Country nationality, int teamId, List<Position> positions)
 
+    @Test(expected = ServiceException.class)
+    public void testAddPlayerThatFails() throws ServiceException
+    {
+        Player testPlayer = new Player(4, "Arni", "Arnason", 193, 97, null, null, 1, null);
+
+        service.addPlayer(testPlayer);
+        service.addPlayer(testPlayer);
+    }
+
+    @Test
+    public void testGetPlayerThatFails() throws ServiceException
+    {
+        assertEquals(null, service.getPlayer(100000));
+    }
 
     protected Date newDate(int year, int month, int date)
     {
@@ -58,3 +81,5 @@ public class TestPlayerService extends TestCase
         return cal.getTime();
     }
 }
+
+

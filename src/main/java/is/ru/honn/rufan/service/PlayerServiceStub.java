@@ -24,6 +24,8 @@ public class PlayerServiceStub implements PlayerService
             }
         }
         // Player requested doesn't exists
+        String msg = "Player with playerID: '" + playerId + "' does not exists.";
+        log.info(msg);
         return null;
     }
 
