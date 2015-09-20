@@ -21,5 +21,4 @@ public class Player
     protected Country nationality;
     protected int teamId;
     protected List<Position> positions = new ArrayList<Position>();
-
 }

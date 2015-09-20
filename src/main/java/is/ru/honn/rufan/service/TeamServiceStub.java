@@ -2,6 +2,7 @@ package is.ru.honn.rufan.service;
 
 import is.ru.honn.rufan.domain.Team;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +20,19 @@ public class TeamServiceStub implements TeamService
 
     public List<Team> getTeams(int leagueId)
     {
-        return null;
+        return teamList;
+    }
+
+    public List<Team> getTeamsByAbbreviation(String abbreviation)
+    {
+        List<Team> tempList = new ArrayList<Team>();
+        for (int i = 0; i < teamList.size(); i++)
+        {
+            if (teamList.get(i).getAbbreviation() == abbreviation)
+            {
+                tempList.add(teamList.get(i));
+            }
+        }
+        return tempList;
     }
 }
