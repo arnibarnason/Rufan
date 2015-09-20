@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class TeamServiceStub implements TeamService
 {
+    private List<Team> teamList;
 
     public int addTeam(int leagueId, Team team) throws ServiceException
     {
