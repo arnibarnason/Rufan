@@ -1,5 +1,7 @@
 package is.ru.honn.rufan.service;
 
+import is.ru.honn.rufan.domain.Player;
+
 import java.util.List;
 
 /**
@@ -13,7 +15,7 @@ public class PlayerServiceStub implements PlayerService
     {
         for (int i = 0; i < playerList.size(); i++)
         {
-            if (playerList.get(i).playerId == playerId)
+            if (playerList.get(i).getPlayerId() == playerId)
             {
                 return playerList.get(i);
             }
@@ -29,6 +31,6 @@ public class PlayerServiceStub implements PlayerService
     public int addPlayer(Player player) throws ServiceException
     {
         playerList.add(player);
-        return player.playerId;
+        return player.getPlayerId();
     }
 }

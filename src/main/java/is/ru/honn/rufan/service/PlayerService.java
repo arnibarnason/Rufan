@@ -1,5 +1,7 @@
 package is.ru.honn.rufan.service;
 
+import is.ru.honn.rufan.domain.Player;
+
 import java.util.List;
 
 /**
