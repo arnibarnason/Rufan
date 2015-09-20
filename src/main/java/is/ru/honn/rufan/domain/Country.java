@@ -9,6 +9,9 @@ public class Country
     private String name;
     private String abbreviation;
 
+    public Country() {
+    }
+
     public Country(int countryId, String name, String abbreviation)
     {
         this.countryId = countryId;
