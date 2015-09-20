@@ -5,6 +5,8 @@ package is.ru.honn.rufan.reader;
  */
 public abstract class AbstractReader implements Reader
 {
+    protected ReadHandler readHandler;
+
     public abstract Object parse(String content);
 
     public Object read()
@@ -19,6 +21,6 @@ public abstract class AbstractReader implements Reader
 
     public void setReadHandler(ReadHandler readHandler)
     {
-
+        this.readHandler = readHandler;
     }
 }

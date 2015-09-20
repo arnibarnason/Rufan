@@ -16,11 +16,11 @@ public class PlayerServiceStub implements PlayerService
 
     public Player getPlayer(int playerId)
     {
-        for (int i = 0; i < playerList.size(); i++)
+        for (Player p : playerList)
         {
-            if (playerList.get(i).getPlayerId() == playerId)
+            if (p.getPlayerId() == playerId)
             {
-                return playerList.get(i);
+                return p;
             }
         }
         // Player requested doesn't exists
@@ -45,6 +45,7 @@ public class PlayerServiceStub implements PlayerService
         }
 
         playerList.add(player);
+        log.info("New player added.");
         return playerList.size() - 1;
     }
 }

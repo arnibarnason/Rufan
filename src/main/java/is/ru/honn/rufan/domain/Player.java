@@ -2,7 +2,6 @@ package is.ru.honn.rufan.domain;
 
 import is.ru.honn.rufan.domain.Country;
 
-import javax.swing.text.Position;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -95,4 +94,7 @@ public class Player
     }
 
     public void addPosition(Position position)
+    {
+        this.positions.add(position);
+    }
 }

@@ -27,6 +27,7 @@ public class TeamServiceStub implements TeamService
         }
 
         teamList.add(team);
+        log.info("New team added.");
         return teamList.size() - 1;
     }
 
