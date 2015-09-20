@@ -9,6 +9,18 @@ public class Team
   private String displayName;
   protected Venue venue;
 
+  public Team(int teamId, String location, String abbreviation, String displayName, Venue venue) {
+    this.teamId = teamId;
+    this.location = location;
+    this.abbreviation = abbreviation;
+    this.displayName = displayName;
+    this.venue = venue;
+  }
+
+  public Team() {
+
+  }
+
   public int getTeamId()
   {
     return teamId;
