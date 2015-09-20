@@ -7,7 +7,7 @@ import is.ru.honn.rufan.reader.ReaderFactory;
  */
 public class PlayerImportProcess
 {
-    ReaderFactory reader;
+    /*ReaderFactory reader;
     public PlayerImportProcess()
     {
         reader = new ReaderFactory(
@@ -16,5 +16,5 @@ public class PlayerImportProcess
     public void read()
     {
         reader.read();
-    }
+    }*/
 }
