@@ -37,31 +37,28 @@ public class TestPlayerService extends TestCase
 
     //@Test(expected = ServiceException.class)
     @Test
-    public void testPlayer() throws ServiceException {
-
-        //     public Position(int positionId, String name, String abbreviation, int sequence)
-        Position pos = new Position(1, "midfielder", "mid", 3);
+    public void testAddPlayer() throws ServiceException {
 
         final List<Position> PLAYER1_POSITIONS = new ArrayList<Position>() {{
             add(new Position(1, "Midfielder", "M", 0));
         }};
 
         Country country = new Country(1, "Denmark", "DK");
-        Player testPlayer = new Player(0, "Arni", "Arnason", 193, 97, newDate(1995, 11, 12), country, 1, PLAYER1_POSITIONS);
+        Player testPlayer = new Player(0, "Gunnar", "Kjartansson", 193, 97, newDate(1995, 11, 12), country, 1, PLAYER1_POSITIONS);
         Player testPlayer2 = new Player(1, "Arni", "Arnason", 193, 97, null, null, 1, null);
 
         service.addPlayer(testPlayer);
         service.addPlayer(testPlayer2);
-        Player playerNew = service.getPlayer(0);
-        Player playerNew2 = service.getPlayer(1);
-        assertSame(playerNew, testPlayer);
-        assertSame(playerNew2, testPlayer2);
+        Player getPlayer = service.getPlayer(testPlayer.getPlayerId());
+        Player getPlayer2 = service.getPlayer(testPlayer2.getPlayerId());
+        assertSame(getPlayer, testPlayer);
+        assertSame(getPlayer2, testPlayer2);
     }
 
     @Test(expected = ServiceException.class)
     public void testAddPlayerThatFails() throws ServiceException
     {
-        Player testPlayer = new Player(4, "Arni", "Arnason", 193, 97, null, null, 1, null);
+        Player testPlayer = new Player(2, "Arni", "Arnason", 193, 97, null, null, 1, null);
 
         service.addPlayer(testPlayer);
         service.addPlayer(testPlayer);
@@ -71,6 +68,27 @@ public class TestPlayerService extends TestCase
     public void testGetPlayerThatFails() throws ServiceException
     {
         assertEquals(null, service.getPlayer(100000));
+    }
+
+    @Test
+    public void testGetPlayerThatExists() throws ServiceException
+    {
+        final List<Position> PLAYER1_POSITIONS = new ArrayList<Position>() {{
+            add(new Position(1, "Midfielder", "M", 0));
+        }};
+
+        Country country = new Country(2, "Iceland", "IS");
+        Player testPlayer = new Player(3, "Gunnar", "Kjartansson", 181, 83, newDate(1992, 01, 02), country, 1, PLAYER1_POSITIONS);
+        Player testPlayer2 = new Player(2, "Sverrir", "Ingason", 193, 94, null, null, 1, null);
+
+        service.addPlayer(testPlayer);
+        service.addPlayer(testPlayer2);
+
+        Player getPlayer = service.getPlayer(testPlayer.getPlayerId());
+        Player getPlayer2 = service.getPlayer(testPlayer2.getPlayerId());
+
+        assertSame(getPlayer, testPlayer);
+        assertSame(getPlayer2, testPlayer2);
     }
 
     protected Date newDate(int year, int month, int date)
