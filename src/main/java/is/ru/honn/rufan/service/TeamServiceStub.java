@@ -13,7 +13,8 @@ public class TeamServiceStub implements TeamService
 
     public int addTeam(int leagueId, Team team) throws ServiceException
     {
-        return 0;
+        teamList.add(team);
+        return teamList.indexOf(team);
     }
 
     public List<Team> getTeams(int leagueId)
