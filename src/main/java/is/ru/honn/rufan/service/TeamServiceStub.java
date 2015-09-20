@@ -1,0 +1,22 @@
+package is.ru.honn.rufan.service;
+
+import is.ru.honn.rufan.domain.Team;
+
+import java.util.List;
+
+/**
+ * Created by arnib on 20/09/15.
+ */
+public class TeamServiceStub implements TeamService
+{
+
+    public int addTeam(int leagueId, Team team) throws ServiceException
+    {
+        return 0;
+    }
+
+    public List<Team> getTeams(int leagueId)
+    {
+        return null;
+    }
+}
