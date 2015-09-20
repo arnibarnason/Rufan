@@ -10,6 +10,7 @@ public class Country
     private String abbreviation;
 
     public Country() {
+
     }
 
     public Country(int countryId, String name, String abbreviation)
@@ -17,10 +18,6 @@ public class Country
         this.countryId = countryId;
         this.name = name;
         this.abbreviation = abbreviation;
-    }
-
-    public Country()
-    {
     }
 
     public int getCountryId()

@@ -35,7 +35,7 @@ public class TestPlayerService extends TestCase
     @Test
     public void testPlayer()
     {
-        /*
+
         //     public Position(int positionId, String name, String abbreviation, int sequence)
         Position pos = new Position(1, "midfielder", "mid", 3);
 
@@ -45,7 +45,8 @@ public class TestPlayerService extends TestCase
 
         Country country = new Country(1, "Denmark", "DK");
         Player testPlayer = new Player(1, "Arni", "Arnason", 193, 97, newDate(1995, 11, 12), country, 1, PLAYER1_POSITIONS);
-        */
+
+
     }
     // public Player(int playerId, String firstName, String lastName, int height, int weight, Date birthDate, Country nationality, int teamId, List<Position> positions)
 
