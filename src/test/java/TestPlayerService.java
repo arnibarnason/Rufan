@@ -56,7 +56,6 @@ public class TestPlayerService extends TestCase
         Player playerNew2 = service.getPlayer(1);
         assertSame(playerNew, testPlayer);
         assertSame(playerNew2, testPlayer2);
-
     }
 
     @Test(expected = ServiceException.class)
