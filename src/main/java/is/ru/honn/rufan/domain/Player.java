@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by arnib on 20/09/15.
+ * Created by us on 20/09/15.
  */
 public class Player
 {
