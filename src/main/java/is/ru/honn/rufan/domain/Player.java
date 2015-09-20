@@ -93,4 +93,6 @@ public class Player
     public void setPositions(List<Position> positions) {
         this.positions = positions;
     }
+
+    public void addPosition(Position position)
 }

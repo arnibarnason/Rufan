@@ -2,14 +2,17 @@ package is.ru.honn.rufan.service;
 
 import is.ru.honn.rufan.domain.Player;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Created by arnib on 20/09/15.
  */
 public class PlayerServiceStub implements PlayerService
 {
-    private List<Player> playerList;
+    private List<Player> playerList = new ArrayList<Player>();
+    Logger log = Logger.getLogger(PlayerServiceStub.class.getName());
 
     public Player getPlayer(int playerId)
     {
@@ -20,6 +23,7 @@ public class PlayerServiceStub implements PlayerService
                 return playerList.get(i);
             }
         }
+        // Player requested doesn't exists
         return null;
     }
 
@@ -30,7 +34,17 @@ public class PlayerServiceStub implements PlayerService
 
     public int addPlayer(Player player) throws ServiceException
     {
+        for (Player p : playerList)
+        {
+            if (p.getPlayerId() == player.getPlayerId())
+            {
+                String msg = "Player with playerID: '" + player.getPlayerId() + "' already exists.";
+                log.info(msg);
+                throw new ServiceException(msg);
+            }
+        }
+
         playerList.add(player);
-        return player.getPlayerId();
+        return playerList.size() - 1;
     }
 }

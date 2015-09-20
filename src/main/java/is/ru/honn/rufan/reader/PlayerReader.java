@@ -7,7 +7,7 @@ import org.json.simple.JSONValue;
 
 import java.util.*;
 
-public class PlayerReader
+public class PlayerReader extends AbstractReader
 {
   public Object parse(String content)
   {
