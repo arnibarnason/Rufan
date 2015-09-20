@@ -2,7 +2,6 @@ package is.ru.honn.rufan.domain;
 
 import is.ru.honn.rufan.domain.Country;
 
-import javax.swing.text.Position;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,9 +20,6 @@ public class Player
     protected Country nationality;
     protected int teamId;
     protected List<Position> positions = new ArrayList<Position>();
-
-    public Player() {
-    }
 
     public int getPlayerId() {
         return playerId;
@@ -94,18 +90,6 @@ public class Player
     }
 
     public void setPositions(List<Position> positions) {
-        this.positions = positions;
-    }
-
-    public Player(int playerId, String firstName, String lastName, int height, int weight, Date birthDate, Country nationality, int teamId, List<Position> positions) {
-        this.playerId = playerId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.height = height;
-        this.weight = weight;
-        this.birthDate = birthDate;
-        this.nationality = nationality;
-        this.teamId = teamId;
         this.positions = positions;
     }
 }

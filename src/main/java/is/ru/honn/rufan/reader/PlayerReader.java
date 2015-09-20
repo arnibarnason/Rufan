@@ -7,7 +7,7 @@ import org.json.simple.JSONValue;
 
 import java.util.*;
 
-public class PlayerReader
+public class PlayerReader extends AbstractReader
 {
   public Object parse(String content)
   {
@@ -71,24 +71,4 @@ public class PlayerReader
 
     return players;
   }
-
-  protected int getInt(JSONObject jParent, String name)
-  {
-    if(jParent == null)
-      return 0;
-    Long value = (Long)jParent.get(name);
-    if(value == null)
-      return 0;
-    return value.intValue();
-  }
-
-  protected Date newDate(int year, int month, int date)
-  {
-    Calendar cal = new GregorianCalendar();
-    cal.set(year, month, date);
-    return cal.getTime();
-  }
-
-
-
 }

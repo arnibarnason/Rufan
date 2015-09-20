@@ -19,6 +19,10 @@ public class Country
         this.abbreviation = abbreviation;
     }
 
+    public Country()
+    {
+    }
+
     public int getCountryId()
     {
         return countryId;

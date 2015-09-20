@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class TeamReader
+public class TeamReader extends AbstractReader
 {
   public Object parse(String content)
   {
@@ -82,23 +82,4 @@ public class TeamReader
 
     return league;
   }
-
-
-  // Format example 2015-08-21T16:19:30.6967613Z
-  protected Date convertDate(String strDate)
-  {
-    DateFormat format = new SimpleDateFormat("yyyy.MM.dd'T'HH:mm:ss", Locale.ENGLISH);
-    Date date = null;
-
-    try
-    {
-      date = format.parse(strDate);
-    }
-    catch (ParseException e)
-    {
-      System.out.println("FAIL");
-    }
-    return date;
-  }
-
 }
