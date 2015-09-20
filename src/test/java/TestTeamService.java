@@ -44,5 +44,15 @@ public class TestTeamService extends TestCase {
         assertSame(getTeam, testTeam);
     }
 
+    @Test(expected = ServiceException.class)
+    public void testAddTeamThatFails() throws ServiceException
+    {
+        Team testTeam = new Team(1, "Manchester", "MANU", "Manchester United", null);
+
+        service.addTeam(1, testTeam);
+        service.addTeam(1, testTeam);
+
+    }
+
 
 }
