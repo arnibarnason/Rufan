@@ -53,16 +53,16 @@ public class TestTeamService extends TestCase {
         service.addTeam(39, testTeam);
     }
 
-    /*@Test(expected = ServiceException.class)
+    @Test(expected = ServiceException.class)
     public void testAddTeamNoLeaguID() throws ServiceException
     {
         Team testTeam = new Team(2, "Manchester", "MANU", "Manchester United", null);
 
-        service.addTeam(2, testTeam);
+        service.addTeam(0, testTeam);
 
     }
 
-    @Test
+   /*@Test
     public void testGetTeamThatFails() throws ServiceException
     {
         assertEquals(null, service.get);

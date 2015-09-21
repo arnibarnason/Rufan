@@ -41,8 +41,15 @@ public class TestPlayerService extends TestCase
 
         service.addPlayer(testPlayer);
         service.addPlayer(testPlayer2);
+
+        List<Player> players = new ArrayList<Player>();
+        players = service.getPlayers(1);
+
+        assertEquals(2, players.size());
+
         Player getPlayer = service.getPlayer(testPlayer.getPlayerId());
         Player getPlayer2 = service.getPlayer(testPlayer2.getPlayerId());
+
         assertSame(getPlayer, testPlayer);
         assertSame(getPlayer2, testPlayer2);
     }
