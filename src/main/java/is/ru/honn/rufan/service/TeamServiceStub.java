@@ -14,8 +14,6 @@ import java.util.logging.Logger;
 public class TeamServiceStub implements TeamService
 {
     private List<League> leagueList = new ArrayList<League>();
-    private List<Team> teamList = new ArrayList<Team>();
-
     Logger log = Logger.getLogger(TeamServiceStub.class.getName());
 
     public TeamServiceStub() {
@@ -27,6 +25,12 @@ public class TeamServiceStub implements TeamService
 
     public int addTeam(int leagueId, Team team) throws ServiceException
     {
+        if(leagueId == 0){
+            String msg = "A league with ID: 0 does not exist and is not allowed";
+            log.info(msg);
+            throw new ServiceException(msg);
+        }
+
         League l = getLeague(leagueId);
 
         if (l == null)
@@ -70,13 +74,7 @@ public class TeamServiceStub implements TeamService
 
     public List<Team> getTeams(int leagueId)
     {
-        for(League l : leagueList)
-        {
-            if(l.getLeagueId() == leagueId)
-            {
-                return l.getSeason().getTeams();
-            }
-        }
-        return null;
+        League league = getLeague(leagueId);
+        return league.getSeason().getTeams();
     }
 }

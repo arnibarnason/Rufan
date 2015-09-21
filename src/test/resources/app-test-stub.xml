@@ -5,6 +5,4 @@
 
        <bean id="playerService" class="is.ru.honn.rufan.service.PlayerServiceStub"/>
        <bean id="teamService" class="is.ru.honn.rufan.service.TeamServiceStub"/>
-
-
 </beans>
