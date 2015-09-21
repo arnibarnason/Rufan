@@ -1,6 +1,4 @@
-import is.ru.honn.rufan.domain.Country;
-import is.ru.honn.rufan.domain.Player;
-import is.ru.honn.rufan.domain.Position;
+import is.ru.honn.rufan.domain.*;
 import is.ru.honn.rufan.service.PlayerService;
 import is.ru.honn.rufan.service.ServiceException;
 import junit.framework.TestCase;
@@ -20,32 +18,40 @@ import java.util.logging.Logger;
 @ContextConfiguration("classpath:app-test-stub.xml")
 public class TestPlayerService extends TestCase
 {
-    Logger log = Logger.getLogger(TestPlayerService.class.getName());
-
     @Autowired
     private PlayerService service;
 
+    Venue venue;
+    Team team;
+
     @Before
-    public void setup() {}
+    public void setup() {
+        venue = new Venue();
+        venue.setName("Anfield");
+        venue.setCity("Liverpool");
+        venue.setVenueId(1);
 
+        team = new Team();
+        team.setTeamId(1);
+        team.setAbbreviation("LIV");
+        team.setDisplayName("Liverpool");
+        team.setLocation("Liverpool");
+        team.setVenue(venue);
+    }
+    // This test covers both adding a valid Player and getting a Player that exists
     @Test
-    public void testAddPlayer() throws ServiceException {
+    public void testAddValidPlayer() throws ServiceException {
 
-        final List<Position> PLAYER1_POSITIONS = new ArrayList<Position>() {{
+        final List<Position> positions = new ArrayList<Position>() {{
             add(new Position(1, "DEFENDER", "D", 0));
         }};
 
         Country country = new Country(1, "Denmark", "DK");
-        Player testPlayer = new Player(0, "Gunnar", "Kjartansson", 193, 97, null, country, 1, PLAYER1_POSITIONS);
-        Player testPlayer2 = new Player(1, "Arni", "Arnason", 193, 97, null, null, 1, null);
+        Player testPlayer = new Player(1, "Gunnar", "Kjartansson", 193, 97, null, country, team.getTeamId(), positions);
+        Player testPlayer2 = new Player(2, "Arni", "Arnason", 193, 97, null, country, team.getTeamId(), positions);
 
         service.addPlayer(testPlayer);
         service.addPlayer(testPlayer2);
-
-        List<Player> players = new ArrayList<Player>();
-        players = service.getPlayers(1);
-
-        assertEquals(2, players.size());
 
         Player getPlayer = service.getPlayer(testPlayer.getPlayerId());
         Player getPlayer2 = service.getPlayer(testPlayer2.getPlayerId());
@@ -55,24 +61,24 @@ public class TestPlayerService extends TestCase
     }
 
     @Test(expected = ServiceException.class)
-    public void testAddPlayerThatFails() throws ServiceException
+    public void testAddPlayerThatExists() throws ServiceException
     {
-        Player testPlayer = new Player(2, "Arni", "Arnason", 193, 97, null, null, 1, null);
+        Player testPlayer = new Player(3, "Arni", "Arnason", 193, 97, null, null, 1, null);
 
         service.addPlayer(testPlayer);
         service.addPlayer(testPlayer);
     }
-
+    // FirstName can be empty or null (update on assignment description 21/9)
     @Test
-    public void testGetPlayerThatExists() throws ServiceException
+    public void testAddPlayerNoFirstName() throws ServiceException
     {
-        final List<Position> PLAYER1_POSITIONS = new ArrayList<Position>() {{
+        final List<Position> positions = new ArrayList<Position>() {{
             add(new Position(1, "STRIKER", "S", 0));
         }};
-
         Country country = new Country(2, "Iceland", "IS");
-        Player testPlayer = new Player(3, "Gunnar", "Kjartansson", 181, 83, null, country, 1, PLAYER1_POSITIONS);
-        Player testPlayer2 = new Player(4, "Sverrir", "Ingason", 193, 94, null, null, 1, null);
+
+        Player testPlayer = new Player(4, "", "Kjartansson", 181, 83, null, country, team.getTeamId(), positions);
+        Player testPlayer2 = new Player(5, null, "Ingason", 193, 94, null, country, team.getTeamId(), positions);
 
         service.addPlayer(testPlayer);
         service.addPlayer(testPlayer2);
@@ -84,9 +90,38 @@ public class TestPlayerService extends TestCase
         assertSame(getPlayer2, testPlayer2);
     }
 
+    @Test(expected = ServiceException.class)
+    public void testAddPlayerNoLastName() throws ServiceException
+    {
+        final List<Position> positions = new ArrayList<Position>() {{
+            add(new Position(1, "STRIKER", "S", 0));
+        }};
+        Country country = new Country(2, "Iceland", "IS");
+
+        Player testPlayer = new Player(6, "Gunnar", "", 181, 83, null, country, team.getTeamId(), positions);
+        Player testPlayer2 = new Player(7, "Gunnar", null, 181, 83, null, country, team.getTeamId(), positions);
+
+        service.addPlayer(testPlayer);
+        service.addPlayer(testPlayer2);
+    }
+
+    @Test(expected = ServiceException.class)
+    public void testAddPlayerZeroTeamID() throws ServiceException
+    {
+        final List<Position> positions = new ArrayList<Position>() {{
+            add(new Position(1, "STRIKER", "S", 0));
+        }};
+        Country country = new Country(2, "Iceland", "IS");
+
+        Player testPlayer = new Player(6, "Gunnar", "Kjartansson", 181, 83, null, country, 0, positions);
+
+        service.addPlayer(testPlayer);
+    }
+
     @Test
     public void testGetPlayerThatFails() throws ServiceException
     {
         assertEquals(null, service.getPlayer(100000));
     }
+
 }

@@ -31,18 +31,34 @@ public class TeamServiceStub implements TeamService
             throw new ServiceException(msg);
         }
 
+        if(team.getTeamId() == 0 ||
+                team.getAbbreviation() == null ||
+                team.getAbbreviation().isEmpty() ||
+                team.getVenue() == null ||
+                team.getDisplayName() == null ||
+                team.getDisplayName().isEmpty())
+        {
+            String msg = "Invalid parameters to addTeam";
+            log.info(msg);
+            throw  new ServiceException(msg);
+        }
+
         League l = getLeague(leagueId);
 
         if (l == null)
         {
             l = new League();
             l.setLeagueId(leagueId);
-            leagueList.add(l);
-        }
-
-        if (l.getSeason() == null)
-        {
+            l.setName("TmpLeague");
+            l.setDisplayName("TmpLeague");
+            l.setAbbreviation("Tmp");
             l.setSeason(new Season());
+
+            l.getSeason().setName("TmpSeason");
+            l.getSeason().setSeason(1);
+            l.getSeason().setIsActive(false);
+
+            leagueList.add(l);
         }
 
         for (Team t : l.getSeason().getTeams())
@@ -75,6 +91,9 @@ public class TeamServiceStub implements TeamService
     public List<Team> getTeams(int leagueId)
     {
         League league = getLeague(leagueId);
-        return league.getSeason().getTeams();
+        if(league != null){
+            return league.getSeason().getTeams();
+        }
+        return null;
     }
 }

@@ -3,6 +3,7 @@ package is.ru.honn.rufan.service;
 import is.ru.honn.rufan.domain.Player;
 import is.ru.honn.rufan.domain.Team;
 
+import javax.xml.ws.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -32,7 +33,15 @@ public class PlayerServiceStub implements PlayerService
 
     public List<Player> getPlayers(int teamId)
     {
-        return playerList;
+        List<Player> players = new ArrayList<Player>();
+        for(Player p : playerList)
+        {
+            if(p.getTeamId() == teamId)
+            {
+                players.add(p);
+            }
+        }
+        return players;
     }
 
     public List<Player> getPlayersByTeam(Team team)
@@ -50,6 +59,19 @@ public class PlayerServiceStub implements PlayerService
 
     public int addPlayer(Player player) throws ServiceException
     {
+        if(player.getFirstName() == null)
+        {
+            player.setFirstName("");
+        }
+
+        if(player.getTeamId() == 0 ||
+                player.getLastName() == null ||
+                player.getLastName().isEmpty())
+        {
+            String msg = "Invalid parameters for adding player";
+            throw new ServiceException(msg);
+        }
+
         for (Player p : playerList)
         {
             if (p.getPlayerId() == player.getPlayerId())

@@ -2,7 +2,10 @@
  * Created by gunnarok on 20.9.15.
  */
 
+import is.ru.honn.rufan.domain.League;
+import is.ru.honn.rufan.domain.Season;
 import is.ru.honn.rufan.domain.Team;
+import is.ru.honn.rufan.domain.Venue;
 import is.ru.honn.rufan.service.TeamService;
 import is.ru.honn.rufan.service.ServiceException;
 import junit.framework.TestCase;
@@ -21,18 +24,40 @@ public class TestTeamService extends TestCase {
     @Autowired
     private TeamService service;
 
-    @Before
-    public void setup() {}
+    Season season;
+    League league;
+    Venue venue;
 
+    @Before
+    public void setup() {
+        venue = new Venue();
+        venue.setName("Anfield");
+        venue.setCity("Liverpool");
+        venue.setVenueId(1);
+
+        season = new Season();
+        season.setIsActive(true);
+        season.setName("EPL 2015");
+        season.setSeason(1);
+
+        league = new League();
+        league.setName("English premier league");
+        league.setDisplayName("English Premier League");
+        league.setAbbreviation("EPL");
+        league.setLeagueId(1);
+        league.setSeason(season);
+    }
+
+    // This test covers both adding a valid team and getting a team that exists.
     @Test
-    public void testAddTeam() throws ServiceException
+    public void testAddValidTeam() throws ServiceException
     {
-        Team testTeam = new Team(0, "Liverpool", "LIV", "Liverpool", null);
+        Team testTeam = new Team(1, "Liverpool", "LIV", "Liverpool", venue);
         Team getTeam = null;
 
-        service.addTeam(39, testTeam);
+        service.addTeam(league.getLeagueId(), testTeam);
 
-        List <Team> getTeamList = service.getTeams(39);
+        List <Team> getTeamList = service.getTeams(league.getLeagueId());
 
         for(Team t: getTeamList)
         {
@@ -45,27 +70,51 @@ public class TestTeamService extends TestCase {
     }
 
     @Test(expected = ServiceException.class)
-    public void testAddTeamThatFails() throws ServiceException
+    public void testAddTeamNoTeamName() throws ServiceException
     {
-        Team testTeam = new Team(1, "Manchester", "MANU", "Manchester United", null);
+        Team testTeam = new Team(2, "Manchester", "MANU", "", venue);
 
-        service.addTeam(39, testTeam);
-        service.addTeam(39, testTeam);
+        service.addTeam(league.getLeagueId(), testTeam);
     }
 
     @Test(expected = ServiceException.class)
-    public void testAddTeamNoLeaguID() throws ServiceException
+    public void testAddTeamNoVenue() throws ServiceException
     {
-        Team testTeam = new Team(2, "Manchester", "MANU", "Manchester United", null);
+        Team testTeam = new Team(3, "Somewhere", "WBA", "West Bromwich Albion", null);
 
-        service.addTeam(0, testTeam);
+        service.addTeam(league.getLeagueId(), testTeam);
+    }
+
+    @Test(expected = ServiceException.class)
+    public void testAddTeamNoAbbreviation() throws ServiceException
+    {
+        Team testTeam = new Team(4, "Chelsea", "", "Chelsea", venue);
+
+        service.addTeam(league.getLeagueId(), testTeam);
+    }
+
+    @Test(expected = ServiceException.class)
+    public void testAddTeamZeroLeagueID() throws ServiceException
+    {
+        Team testTeam = new Team(0, "Manchester", "MANU", "Manchester United", null);
+
+        service.addTeam(league.getLeagueId(), testTeam);
 
     }
 
-   /*@Test
-    public void testGetTeamThatFails() throws ServiceException
+    @Test(expected = ServiceException.class)
+    public void testAddTeamThatExists() throws ServiceException
     {
-        assertEquals(null, service.get);
-    }*/
+        Team testTeam = new Team(6, "Manchester", "MANU", "Manchester United", null);
 
+        service.addTeam(league.getLeagueId(), testTeam);
+        service.addTeam(league.getLeagueId(), testTeam);
+
+    }
+
+   @Test
+    public void testGetTeamThatNotExists() throws ServiceException
+    {
+        assertEquals(null, service.getTeams(100000));
+    }
 }
