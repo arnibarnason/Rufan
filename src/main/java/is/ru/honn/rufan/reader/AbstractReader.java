@@ -21,6 +21,7 @@ public abstract class AbstractReader implements Reader
 
     public Object read()
     {
+        // 'A ad kalla i parse eda read i process
         return null;
     }
 
