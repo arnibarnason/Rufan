@@ -27,29 +27,45 @@ public class TeamServiceStub implements TeamService
 
     public int addTeam(int leagueId, Team team) throws ServiceException
     {
-        for (League l : leagueList)
-        {
-            if(l.getLeagueId() == leagueId)
-            {
-                if(l.getSeason() == null)
-                {
-                    l.setSeason(new Season());
-                }
+        League l = getLeague(leagueId);
 
-                for (Team t : l.getSeason().getTeams()) {
-                    if (t.getTeamId() == team.getTeamId())
-                    {
-                        String msg = "Team with teamId: '" + team.getTeamId() + "' already exists.";
-                        log.info(msg);
-                        throw new ServiceException(msg);
-                    }
-                }
-                l.getSeason().addTeam(team);
-                log.info("New team added.");
-                return l.getSeason().getTeams().size() - 1;
+        if (l == null)
+        {
+            l = new League();
+            l.setLeagueId(leagueId);
+            leagueList.add(l);
+        }
+
+        if (l.getSeason() == null)
+        {
+            l.setSeason(new Season());
+        }
+
+        for (Team t : l.getSeason().getTeams())
+        {
+            if (t.getTeamId() == team.getTeamId())
+            {
+                String msg = "Team with teamId: '" + team.getTeamId() + "' already exists.";
+                log.info(msg);
+                throw new ServiceException(msg);
             }
         }
-        return 0;
+
+        l.getSeason().addTeam(team);
+        log.info("New team added.");
+        return l.getSeason().getTeams().size() - 1;
+    }
+
+    private League getLeague(int leagueId)
+    {
+        for (League l : leagueList)
+        {
+            if (l.getLeagueId() == leagueId)
+            {
+                return l;
+            }
+        }
+        return null;
     }
 
     public List<Team> getTeams(int leagueId)
@@ -62,18 +78,5 @@ public class TeamServiceStub implements TeamService
             }
         }
         return null;
-    }
-
-    public List<Team> getTeamsByAbbreviation(String abbreviation)
-    {
-        List<Team> tempList = new ArrayList<Team>();
-        for (Team t : teamList)
-        {
-            if (t.getAbbreviation() == abbreviation)
-            {
-                tempList.add(t);
-            }
-        }
-        return tempList;
     }
 }

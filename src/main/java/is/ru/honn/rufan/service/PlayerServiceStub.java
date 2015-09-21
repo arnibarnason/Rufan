@@ -1,6 +1,7 @@
 package is.ru.honn.rufan.service;
 
 import is.ru.honn.rufan.domain.Player;
+import is.ru.honn.rufan.domain.Team;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,19 @@ public class PlayerServiceStub implements PlayerService
     public List<Player> getPlayers(int teamId)
     {
         return playerList;
+    }
+
+    public List<Player> getPlayersByTeam(Team team)
+    {
+        List<Player> teamPlayers = new ArrayList<Player>();
+        for (Player p : playerList)
+        {
+            if (p.getTeamId() == team.getTeamId())
+            {
+                teamPlayers.add(p);
+            }
+        }
+        return teamPlayers;
     }
 
     public int addPlayer(Player player) throws ServiceException
