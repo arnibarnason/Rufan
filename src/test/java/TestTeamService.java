@@ -30,9 +30,9 @@ public class TestTeamService extends TestCase {
         Team testTeam = new Team(0, "Liverpool", "LIV", "Liverpool", null);
         Team getTeam = null;
 
-        service.addTeam(0, testTeam);
+        service.addTeam(39, testTeam);
 
-        List <Team> getTeamList = service.getTeamsByAbbreviation("LIV");
+        List <Team> getTeamList = service.getTeams(39);
 
         for(Team t: getTeamList)
         {
@@ -49,10 +49,23 @@ public class TestTeamService extends TestCase {
     {
         Team testTeam = new Team(1, "Manchester", "MANU", "Manchester United", null);
 
-        service.addTeam(1, testTeam);
-        service.addTeam(1, testTeam);
+        service.addTeam(39, testTeam);
+        service.addTeam(39, testTeam);
+    }
+
+    /*@Test(expected = ServiceException.class)
+    public void testAddTeamNoLeaguID() throws ServiceException
+    {
+        Team testTeam = new Team(2, "Manchester", "MANU", "Manchester United", null);
+
+        service.addTeam(2, testTeam);
 
     }
 
+    @Test
+    public void testGetTeamThatFails() throws ServiceException
+    {
+        assertEquals(null, service.get);
+    }*/
 
 }
