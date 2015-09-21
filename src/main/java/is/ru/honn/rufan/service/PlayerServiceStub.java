@@ -2,14 +2,13 @@ package is.ru.honn.rufan.service;
 
 import is.ru.honn.rufan.domain.Player;
 import is.ru.honn.rufan.domain.Team;
-
-import javax.xml.ws.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 /**
  * Created by arnib on 20/09/15.
+ * A service stub replicating a database.
  */
 public class PlayerServiceStub implements PlayerService
 {
