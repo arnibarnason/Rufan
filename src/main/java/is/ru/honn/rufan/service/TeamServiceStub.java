@@ -17,7 +17,7 @@ public class TeamServiceStub implements TeamService
     Logger log = Logger.getLogger(TeamServiceStub.class.getName());
 
     /**
-     * Overwritten method to add a team to a certain league. A league owns a Season,
+     * Method to add a team to a certain league. A league owns a Season,
      * a Season owns a list of teams which is the target list to add teams to.
      * @param leagueId The ID of the league
      * @param team The team object to be added to the list
@@ -80,9 +80,10 @@ public class TeamServiceStub implements TeamService
     }
 
     /**
+     * Helper function.
      * Gets the league with leagueID as it's ID.
      * @param leagueId The ID of the wanted league.
-     * @return The league, if it does not exist, return null.
+     * @return The league, if not exists, return null.
      */
     private League getLeague(int leagueId)
     {

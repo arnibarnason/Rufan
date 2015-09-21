@@ -15,6 +15,11 @@ public class PlayerServiceStub implements PlayerService
     private List<Player> playerList = new ArrayList<Player>();
     Logger log = Logger.getLogger(PlayerServiceStub.class.getName());
 
+    /**
+     * Gets a player with the given playerID.
+     * @param playerId The ID of the desired player.
+     * @return The player with the playerID, if not exists, return null.
+     */
     public Player getPlayer(int playerId)
     {
         for (Player p : playerList)
@@ -30,6 +35,11 @@ public class PlayerServiceStub implements PlayerService
         return null;
     }
 
+    /**
+     * Gets a list of players that play for the team with teamID.
+     * @param teamId The ID of the desired team.
+     * @return The list of players, empty if no player found.
+     */
     public List<Player> getPlayers(int teamId)
     {
         List<Player> players = new ArrayList<Player>();
@@ -43,6 +53,11 @@ public class PlayerServiceStub implements PlayerService
         return players;
     }
 
+    /**
+     * Gets a list of players of the team passed as argument.
+     * @param team The team
+     * @return A list of PLayers of the given team.
+     */
     public List<Player> getPlayersByTeam(Team team)
     {
         List<Player> teamPlayers = new ArrayList<Player>();
@@ -56,13 +71,21 @@ public class PlayerServiceStub implements PlayerService
         return teamPlayers;
     }
 
+    /**
+     * Method to add a player to the list of players.
+     * @param player is the player to add.
+     * @return the list index of the player added.
+     * @throws ServiceException
+     */
     public int addPlayer(Player player) throws ServiceException
     {
+        // Set Firstname to empty string if null, because of a flaw in the
+        // player.json file (Assignment update 21/9).
         if(player.getFirstName() == null)
         {
             player.setFirstName("");
         }
-
+        // Check for invalid properties of a player.
         if(player.getTeamId() == 0 ||
                 player.getLastName() == null ||
                 player.getLastName().isEmpty())
@@ -70,7 +93,8 @@ public class PlayerServiceStub implements PlayerService
             String msg = "Invalid parameters for adding player";
             throw new ServiceException(msg);
         }
-
+        // Loop through the list of players to check if the player exists,
+        // if so throw exception, else add the player to the list.
         for (Player p : playerList)
         {
             if (p.getPlayerId() == player.getPlayerId())
