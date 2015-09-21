@@ -21,7 +21,7 @@ public class ReaderFactory
 
     public static ReaderFactory getReaderFactory()
     {
-        // Not correct
+        // Not correctt
         return new ReaderFactory();
     }
 
