@@ -2,15 +2,17 @@ package is.ru.honn.rufan.service;
 
 import is.ru.honn.rufan.domain.Player;
 import is.ru.honn.rufan.domain.Team;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 import java.util.logging.Logger;
 
 /**
  * Created by arnib on 20/09/15.
  * A service stub replicating a database.
  */
-public class PlayerServiceStub implements PlayerService
+public class PlayerServiceStub extends Observable implements PlayerService
 {
     private List<Player> playerList = new ArrayList<Player>();
     Logger log = Logger.getLogger(PlayerServiceStub.class.getName());
@@ -106,7 +108,9 @@ public class PlayerServiceStub implements PlayerService
         }
 
         playerList.add(player);
-        log.info("New player added.");
+        String msg = "New player added";
+        log.info(msg);
+        notifyObservers(msg);
         return playerList.size() - 1;
     }
 }

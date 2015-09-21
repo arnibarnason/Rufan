@@ -1,7 +1,11 @@
 package is.ru.honn.rufan.reader;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,10 +23,23 @@ public abstract class AbstractReader implements Reader
 
     public abstract Object parse(String content);
 
-    public Object read()
+    public Object read() throws ReaderException
     {
-        // 'A ad kalla i parse eda read i process
-        return null;
+        ClientRequest CR = new ClientRequest();
+        String content = CR.getRequest("http://olafurandri.com/honn/players.json");
+        return this.parse(content);
+//        JSONParser parser = new JSONParser();
+//        try {
+//            Object obj = parser.parse(new FileReader(URI));
+//            JSONObject jsonObject = (JSONObject) obj;
+//            return this.parse(jsonObject.toJSONString());
+//        } catch (ParseException e) {
+//            throw new ReaderException();
+//        } catch (FileNotFoundException e) {
+//            throw new ReaderException();
+//        } catch (IOException e) {
+//            throw new ReaderException();
+//        }
     }
 
     public void setURI(String URI)

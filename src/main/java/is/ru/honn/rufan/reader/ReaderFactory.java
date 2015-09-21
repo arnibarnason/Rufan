@@ -1,7 +1,6 @@
 package is.ru.honn.rufan.reader;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
@@ -9,8 +8,8 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  */
 public class ReaderFactory
 {
-    private ReaderFactory factory = new ReaderFactory();
-    Reader reader = factory.getReader("playerReader");
+    //private ReaderFactory factory = new ReaderFactory();
+    //Reader reader = factory.getReader("playerReader");
 
     //reader.setReadHandler(this);
     //reader.read();
@@ -19,11 +18,11 @@ public class ReaderFactory
     {
     }
 
-    public static ReaderFactory getReaderFactory()
-    {
-        // Not correctt
-        return new ReaderFactory();
-    }
+//    public static ReaderFactory getReaderFactory()
+//    {
+//        // Not correct
+//        return new ReaderFactory();
+//    }
 
     public Reader getReader(String readerType)
     {
