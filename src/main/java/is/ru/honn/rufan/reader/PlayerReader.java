@@ -68,7 +68,6 @@ public class PlayerReader extends AbstractReader
       players.add(player);
       readHandler.read(i, player);
     }
-
     return players;
   }
 }

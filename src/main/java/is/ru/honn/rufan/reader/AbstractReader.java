@@ -1,11 +1,6 @@
 package is.ru.honn.rufan.reader;
 
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

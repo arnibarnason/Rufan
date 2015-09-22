@@ -13,6 +13,6 @@ public interface PlayerService
 {
     Player getPlayer(int playerId);
     List<Player> getPlayers(int teamId);
-    List<Player> getPlayersByTeam(Team team);
     int addPlayer(Player player) throws ServiceException;
+    List<Player> getPlayersByTeam(String abbreviation);
 }

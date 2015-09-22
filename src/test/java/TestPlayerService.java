@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.*;
-import java.util.logging.Logger;
 
 /**
  * Created by arnib on 20/09/15.
@@ -123,5 +122,4 @@ public class TestPlayerService extends TestCase
     {
         assertEquals(null, service.getPlayer(100000));
     }
-
 }

@@ -15,6 +15,7 @@ public class TeamServiceStub implements TeamService
 {
     private List<League> leagueList = new ArrayList<League>();
     Logger log = Logger.getLogger(TeamServiceStub.class.getName());
+    List<Team> teams = new ArrayList<Team>();
 
     /**
      * Method to add a team to a certain league. A league owns a Season,
@@ -43,6 +44,16 @@ public class TeamServiceStub implements TeamService
             String msg = "Invalid parameters to addTeam";
             log.info(msg);
             throw  new ServiceException(msg);
+        }
+
+        // The list of teams holds all teams, two teams can have the same abbreviation,
+        // but then they must have a different ID. F.ex. Liverpool has an A team and B team.
+        for(Team t: teams)
+        {
+            if(t.getTeamId() != team.getTeamId() && t.getAbbreviation() != team.getAbbreviation())
+            {
+                teams.add(team);
+            }
         }
 
         League l = getLeague(leagueId);
@@ -77,6 +88,23 @@ public class TeamServiceStub implements TeamService
         l.getSeason().addTeam(team);
         log.info("New team added.");
         return l.getSeason().getTeams().size() - 1;
+    }
+
+    /**
+     * Helper function to get teams by their abbreviation.
+     * @param abbreviation The team abbreviation
+     * @return The team, if not exists, return null.
+     */
+    public Team getTeamByAbbreviation(String abbreviation)
+    {
+        for(Team t: teams)
+        {
+            if(t.getAbbreviation().equals(abbreviation))
+            {
+                return t;
+            }
+        }
+        return null;
     }
 
     /**

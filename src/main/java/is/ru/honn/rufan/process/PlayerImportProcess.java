@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 /**
  * Created by arnib on 20/09/15.
  */
-public class PlayerImportProcess extends RuAbstractProcess implements ReadHandler
+public class    PlayerImportProcess extends RuAbstractProcess implements ReadHandler
 {
     Reader reader;
     Logger log = Logger.getLogger(PlayerImportProcess.class.getName());

@@ -16,6 +16,49 @@ public class PlayerServiceStub extends Observable implements PlayerService
 {
     private List<Player> playerList = new ArrayList<Player>();
     Logger log = Logger.getLogger(PlayerServiceStub.class.getName());
+    // Instance of TeamServiceStub to be able to use getTeamBtAbbreviation
+    private TeamServiceStub teamServiceStub;
+
+    /**
+     * Method to add a player to the list of players.
+     * @param player is the player to add.
+     * @return the list index of the player added.
+     * @throws ServiceException
+     */
+    public int addPlayer(Player player) throws ServiceException
+    {
+        // Set FirstName to empty string if null, because of a flaw in the
+        // player.json file (Assignment update 21/9).
+        if(player.getFirstName() == null)
+        {
+            player.setFirstName("");
+        }
+        // Check for invalid properties of a player.
+        if(player.getTeamId() == 0 ||
+                player.getLastName() == null ||
+                player.getLastName().isEmpty())
+        {
+            String msg = "Invalid parameters for adding player";
+            throw new ServiceException(msg);
+        }
+        // Loop through the list of players to check if the player exists,
+        // if so throw exception, else add the player to the list.
+        for (Player p : playerList)
+        {
+            if (p.getPlayerId() == player.getPlayerId())
+            {
+                String msg = "Player with playerID: '" + player.getPlayerId() + "' already exists.";
+                log.info(msg);
+                throw new ServiceException(msg);
+            }
+        }
+
+        playerList.add(player);
+        String msg = "New player added";
+        log.info(msg);
+        notifyObservers(msg);
+        return playerList.size() - 1;
+    }
 
     /**
      * Gets a player with the given playerID.
@@ -56,61 +99,23 @@ public class PlayerServiceStub extends Observable implements PlayerService
     }
 
     /**
-     * Gets a list of players of the team passed as argument.
-     * @param team The team
-     * @return A list of PLayers of the given team.
+     * Get all players that play for a given team.
+     * @param abbreviation The team abbreviation
+     * @return A list of players.
      */
-    public List<Player> getPlayersByTeam(Team team)
+    public List<Player> getPlayersByTeam(String abbreviation)
     {
-        List<Player> teamPlayers = new ArrayList<Player>();
+        List<Player> players = new ArrayList<Player>();
+        Team team;
+        team = teamServiceStub.getTeamByAbbreviation(abbreviation);
+
         for (Player p : playerList)
         {
             if (p.getTeamId() == team.getTeamId())
             {
-                teamPlayers.add(p);
+                players.add(p);
             }
         }
-        return teamPlayers;
-    }
-
-    /**
-     * Method to add a player to the list of players.
-     * @param player is the player to add.
-     * @return the list index of the player added.
-     * @throws ServiceException
-     */
-    public int addPlayer(Player player) throws ServiceException
-    {
-        // Set Firstname to empty string if null, because of a flaw in the
-        // player.json file (Assignment update 21/9).
-        if(player.getFirstName() == null)
-        {
-            player.setFirstName("");
-        }
-        // Check for invalid properties of a player.
-        if(player.getTeamId() == 0 ||
-                player.getLastName() == null ||
-                player.getLastName().isEmpty())
-        {
-            String msg = "Invalid parameters for adding player";
-            throw new ServiceException(msg);
-        }
-        // Loop through the list of players to check if the player exists,
-        // if so throw exception, else add the player to the list.
-        for (Player p : playerList)
-        {
-            if (p.getPlayerId() == player.getPlayerId())
-            {
-                String msg = "Player with playerID: '" + player.getPlayerId() + "' already exists.";
-                log.info(msg);
-                throw new ServiceException(msg);
-            }
-        }
-
-        playerList.add(player);
-        String msg = "New player added";
-        log.info(msg);
-        notifyObservers(msg);
-        return playerList.size() - 1;
+        return players;
     }
 }
