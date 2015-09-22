@@ -1,5 +1,5 @@
 /**
- * Created by gunnarok on 20.9.15.
+ * JUnit tests for teamService
  */
 
 import is.ru.honn.rufan.domain.League;

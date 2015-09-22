@@ -41,9 +41,7 @@ public class TeamServiceStub implements TeamService
                 team.getDisplayName() == null ||
                 team.getDisplayName().isEmpty())
         {
-            String msg = "Invalid parameters to addTeam";
-            log.info(msg);
-            throw  new ServiceException(msg);
+            throw  new ServiceException();
         }
 
         // The list of teams holds all teams, two teams can have the same abbreviation,

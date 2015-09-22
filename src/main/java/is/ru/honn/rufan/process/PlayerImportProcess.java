@@ -11,7 +11,9 @@ import is.ru.honn.rufan.service.PlayerService;
 import is.ru.honn.rufan.service.ServiceException;
 import is.ru.honn.rufan.service.ServiceFactory;
 import is.ruframework.process.RuAbstractProcess;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -24,12 +26,16 @@ import java.util.logging.Logger;
  */
 public class PlayerImportProcess extends RuAbstractProcess implements ReadHandler
 {
-    Reader reader;
     Logger log = Logger.getLogger(PlayerImportProcess.class.getName());
-    private PlayerService playerService;
-    private ArrayList<Observer> observerList = new ArrayList<Observer>();
-    MessageSource msg;
-    Locale languageTag = Locale.forLanguageTag("is");
+    protected Reader reader;
+    protected PlayerService playerService;
+    protected ArrayList<Observer> observerList = new ArrayList<Observer>();
+    protected MessageSource msg;
+    protected Locale languageTag;
+
+    public PlayerImportProcess() {
+        this.languageTag = Locale.forLanguageTag("is");
+    }
 
     /**
      * Called before process starts and sets up data for process
@@ -41,11 +47,17 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         ServiceFactory serviceFactory = new ServiceFactory();
         ReaderFactory readerFactory = new ReaderFactory();
 
+        try {
+            msg = readerFactory.getMessageSource("messageSource");
+        } catch (ReaderException e) {
+            log.severe(msg.getMessage("getmessagesource", new Object[]{this.getClass().getName()}, languageTag));
+        }
+
         // Get type of service to use
         try {
             playerService = serviceFactory.getPlayerService("PlayerStub");
         } catch (ReaderException e) {
-            log.info(e.getMessage());
+            log.severe(msg.getMessage("getplayerservice", new Object[]{this.getClass().getName()}, languageTag));
         }
 
         // Get the observer to add to observer list
@@ -53,7 +65,7 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         try {
             observer = observerFactory.getObserver("playerObserver");
         } catch (ReaderException e) {
-            log.info(e.getMessage());
+            log.severe(msg.getMessage("getobserver", new Object[]{this.getClass().getName()}, languageTag));
         }
 
         observerList.add(observer);
@@ -61,14 +73,10 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         try {
             reader = readerFactory.getReader("PlayerReader");
         } catch (ReaderException e) {
-            log.info(e.getMessage());
+            log.severe(msg.getMessage("getreader", new Object[]{this.getClass().getName()}, languageTag));
         }
+
         reader.setURI(getProcessContext().getImportURL());
-        try {
-            msg = readerFactory.getMessageSource("messageSource");
-        } catch (ReaderException e) {
-            log.info(e.getMessage());
-        }
 
         reader.setReadHandler(this);
 
@@ -81,7 +89,7 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
     @Override
     public void afterProcess()
     {
-        log.info(msg.getMessage("processstartdone", new Object[] {this.getClass().getName()}, languageTag));
+        log.info(msg.getMessage("processstartdone", new Object[]{this.getClass().getName()}, languageTag));
     }
 
     /**
@@ -90,15 +98,15 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
     @Override
     public void startProcess()
     {
+        log.info(msg.getMessage("processstart", new Object[] {this.getClass().getName()}, languageTag));
+
         try
         {
-            log.info("start process");
             reader.read();
         }
         catch (ReaderException e)
         {
-            log.severe("process read error");
-            log.severe(e.getMessage());
+            log.severe(msg.getMessage("processstarterror", new Object[]{this.getClass().getName()}, languageTag));
         }
     }
 
@@ -118,7 +126,7 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         }
         catch (ServiceException e)
         {
-            log.info("Error adding player" + e.getMessage());
+            log.severe(msg.getMessage("addplayererror", new Object[]{this.getClass().getName()}, languageTag));
         }
     }
 

@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.*;
 
 /**
- * Created by arnib on 20/09/15.
+ * JUnit tests for playerService
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:app-test-stub.xml")

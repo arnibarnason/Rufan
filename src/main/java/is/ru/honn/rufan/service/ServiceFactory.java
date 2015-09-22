@@ -35,7 +35,7 @@ public class ServiceFactory
             return service;
         } catch (NoSuchBeanDefinitionException e)
         {
-            throw new ReaderException(e.getMessage());
+            throw new ReaderException();
         }
     }
 
@@ -55,7 +55,7 @@ public class ServiceFactory
             return service;
         } catch (NoSuchBeanDefinitionException e)
         {
-            throw new ReaderException(e.getMessage());
+            throw new ReaderException();
         }
     }
 }

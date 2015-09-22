@@ -36,8 +36,7 @@ public class PlayerServiceStub implements PlayerService
                 player.getLastName() == null ||
                 player.getLastName().isEmpty())
         {
-            String msg = "Invalid parameters for adding player";
-            throw new ServiceException(msg);
+            throw new ServiceException();
         }
         // Loop through the list of players to check if the player exists,
         // if so throw exception, else add the player to the list.
@@ -45,9 +44,7 @@ public class PlayerServiceStub implements PlayerService
         {
             if (p.getPlayerId() == player.getPlayerId())
             {
-                String msg = "Player with playerID: '" + player.getPlayerId() + "' already exists.";
-                log.info(msg);
-                throw new ServiceException(msg);
+                throw new ServiceException();
             }
         }
 

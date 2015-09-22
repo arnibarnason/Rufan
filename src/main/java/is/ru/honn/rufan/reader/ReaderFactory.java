@@ -37,7 +37,7 @@ public class ReaderFactory
             return reader;
         } catch(NoSuchBeanDefinitionException e)
         {
-            throw new ReaderException(e.getMessage());
+            throw new ReaderException();
         }
     }
 
@@ -58,7 +58,7 @@ public class ReaderFactory
             return msg;
         } catch (NoSuchBeanDefinitionException e)
         {
-            throw new ReaderException(e.getMessage());
+            throw new ReaderException();
         }
     }
 }

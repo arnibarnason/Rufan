@@ -32,7 +32,7 @@ public class ObserverFactory
             return observer;
         } catch(NoSuchBeanDefinitionException e)
         {
-            throw new ReaderException(e.getMessage());
+            throw new ReaderException();
         }
     }
 }
