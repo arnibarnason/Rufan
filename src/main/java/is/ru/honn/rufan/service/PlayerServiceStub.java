@@ -4,7 +4,6 @@ import is.ru.honn.rufan.domain.Player;
 import is.ru.honn.rufan.domain.Team;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 /**
