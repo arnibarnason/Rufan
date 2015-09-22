@@ -56,7 +56,8 @@ public class PlayerServiceStub extends Observable implements PlayerService
         playerList.add(player);
         String msg = "New player added";
         log.info(msg);
-        notifyObservers(msg);
+        setChanged();
+        notifyObservers(player);
         return playerList.size() - 1;
     }
 

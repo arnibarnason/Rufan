@@ -6,7 +6,6 @@ import is.ru.honn.rufan.reader.ReadHandler;
 import is.ru.honn.rufan.reader.Reader;
 import is.ru.honn.rufan.reader.ReaderException;
 import is.ru.honn.rufan.reader.ReaderFactory;
-import is.ru.honn.rufan.service.PlayerService;
 import is.ru.honn.rufan.service.PlayerServiceStub;
 import is.ru.honn.rufan.service.ServiceException;
 import is.ruframework.process.RuAbstractProcess;
@@ -20,7 +19,7 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
 {
     Reader reader;
     Logger log = Logger.getLogger(PlayerImportProcess.class.getName());
-    private PlayerServiceStub playerService;// = new PlayerServiceStub();
+    private PlayerServiceStub playerService = new PlayerServiceStub();
     //MessageResource resource;
 
     @Override

@@ -3,17 +3,15 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <beans>
-           <bean id="processContext" class="is.ruframework.process.RuProcessContext">
-                  <property name="processName">
-                         <value>ImportContentProcess</value>
-                  </property>
-                  <property name="importURL">
-                         <value>http://rss.news.yahoo.com/rss/tech</value>
-                  </property>
-                  <property name="processClass">
-                         <value>is.ru.honn.tube.process.ImportContentProcess</value>
-                  </property>
-           </bean>
-    </beans>
+    <bean id="processContext" class="is.ruframework.process.RuProcessContext">
+           <property name="processName">
+                  <value>PlayerImportProcess</value>
+           </property>
+           <property name="importURL">
+                  <value>http://olafurandri.com/honn/players.json</value>
+           </property>
+           <property name="processClass">
+                  <value>is.ru.honn.rufan.process.PlayerImportProcess</value>
+           </property>
+    </bean>
 </beans>
