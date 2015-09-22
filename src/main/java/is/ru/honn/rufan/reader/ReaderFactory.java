@@ -1,6 +1,7 @@
 package is.ru.honn.rufan.reader;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.MessageSource;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
@@ -31,5 +32,14 @@ public class ReaderFactory
         reader = (Reader) ctx.getBean(readerType);
         System.out.println(reader.toString());
         return reader;
+    }
+
+    public MessageSource getMessageSource(String source)
+    {
+        MessageSource msg;
+        ApplicationContext ctx = new FileSystemXmlApplicationContext("classpath:reader.xml");
+        msg = (MessageSource) ctx.getBean(source);
+        System.out.println(msg.toString());
+        return msg;
     }
 }
