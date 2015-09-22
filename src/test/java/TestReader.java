@@ -6,6 +6,7 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -45,14 +46,24 @@ public class TestReader extends TestCase
         assertSame(TeamReader.class, reader.getClass());
     }
 
-    @Test(expected = Exception.class)
+    @Test(expected = NoSuchBeanDefinitionException.class)
     public void testReadXmlWithWrongReader()
     {
-        String typeOfReader = "TeamReader";
+        String typeOfReader = "WrongReader";
 
         Reader reader = readerFactory.getReader(typeOfReader);
 
         assertSame(TeamReader.class, reader.getClass());
     }
+    /*
+    @Test(expected = NoSuchBeanDefinitionException.class)
+    public void testReadXmlWithWrongReader()
+    {
+        String typeOfReader = "WrongReader";
+
+        Reader reader = readerFactory.getReader(typeOfReader);
+
+        assertSame(TeamReader.class, reader.getClass());
+    }*/
 
 }
