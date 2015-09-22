@@ -7,8 +7,16 @@ import org.json.simple.JSONValue;
 
 import java.util.*;
 
+/**
+ * Read from content of file and parse into player object
+ */
 public class PlayerReader extends AbstractReader
 {
+  /**
+   * Parses content of string into a list of players
+   * @param content String from file/url to parse
+   * @return List of players
+   */
   public Object parse(String content)
   {
     // Root object

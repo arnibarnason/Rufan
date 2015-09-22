@@ -58,13 +58,19 @@ public abstract class AbstractReader implements Reader
 
     /**
      * Set the handler
-     * @param readHandler
+     * @param readHandler seperated interface read handler
      */
     public void setReadHandler(ReadHandler readHandler)
     {
         this.readHandler = readHandler;
     }
 
+    /**
+     * Gets integer from name within a json object
+     * @param jParent json Object
+     * @param name String
+     * @return integer
+     */
     protected int getInt(JSONObject jParent, String name)
     {
         if(jParent == null)
@@ -75,6 +81,13 @@ public abstract class AbstractReader implements Reader
         return value.intValue();
     }
 
+    /**
+     * Create new date
+     * @param year Year integer
+     * @param month Month integer
+     * @param date Date integer
+     * @return Date object
+     */
     protected Date newDate(int year, int month, int date)
     {
         Calendar cal = new GregorianCalendar();
@@ -82,7 +95,13 @@ public abstract class AbstractReader implements Reader
         return cal.getTime();
     }
 
-    // Format example 2015-08-21T16:19:30.6967613Z
+
+    /**
+     * Converts date from certain format to a new Date format
+     * Format example 2015-08-21T16:19:30.6967613Z
+     * @param strDate date in string format
+     * @return Date object
+     */
     protected Date convertDate(String strDate)
     {
         DateFormat format = new SimpleDateFormat("yyyy.MM.dd'T'HH:mm:ss", Locale.ENGLISH);

@@ -1,7 +1,11 @@
 package is.ru.honn.rufan.reader;
 
 /**
- * Created by arnib on 20/09/15.
+ * Separated interface stuff which is essentially
+ * unnecessary for this project but is here for
+ * educational purposes and playerImportProcess
+ * implements it to print objects received from reader
+ * and notifies observers
  */
 public interface ReadHandler
 {

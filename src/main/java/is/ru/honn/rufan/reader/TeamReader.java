@@ -15,6 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Read from content of file and parse into player object
+ */
 public class TeamReader extends AbstractReader
 {
   public Object parse(String content)

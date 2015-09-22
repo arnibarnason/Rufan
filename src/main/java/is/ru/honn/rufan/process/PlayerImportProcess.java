@@ -8,7 +8,6 @@ import is.ru.honn.rufan.reader.Reader;
 import is.ru.honn.rufan.reader.ReaderException;
 import is.ru.honn.rufan.reader.ReaderFactory;
 import is.ru.honn.rufan.service.PlayerService;
-import is.ru.honn.rufan.service.PlayerServiceStub;
 import is.ru.honn.rufan.service.ServiceException;
 import is.ru.honn.rufan.service.ServiceFactory;
 import is.ruframework.process.RuAbstractProcess;
@@ -20,7 +19,7 @@ import java.util.logging.Logger;
 /**
  * PlayerImportProcess extends RuAbstractProcess which contains the
  * main function. Class implements ReadHandler's read function which
- * accepts objects created by reader in it's parse function.
+ * accepts objects created by a reader in it's parse function.
  */
 public class PlayerImportProcess extends RuAbstractProcess implements ReadHandler
 {

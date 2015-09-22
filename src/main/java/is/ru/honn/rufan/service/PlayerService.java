@@ -4,7 +4,7 @@ import is.ru.honn.rufan.domain.Player;
 import java.util.List;
 
 /**
- * Created by arnib on 20/09/15.
+ * Interface for player service
  */
 public interface PlayerService
 {
