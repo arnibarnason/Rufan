@@ -21,17 +21,28 @@ public class ClientRequest
     {
     }
 
+    /**
+     * Gets content form url
+     * @param url to get content from
+     * @return String from url
+     */
     public String getRequest(String url)
     {
-    Client client = ClientBuilder.newClient();
-    Response response = client.target(url).request().get();
+        Client client = ClientBuilder.newClient();
+        Response response = client.target(url).request().get();
 
-    String result = response.readEntity(String.class);
-    client.close();
+        String result = response.readEntity(String.class);
+        client.close();
 
-    return result;
+        return result;
     }
 
+    /**
+     * Gets content from file
+     * @param fileName name of file
+     * @return content of file
+     * @throws ReaderException
+     */
     public String getFileContent(String fileName) throws ReaderException
     {
         StringBuilder content = new StringBuilder();

@@ -1,7 +1,7 @@
 package is.ru.honn.rufan.reader;
 
 /**
- *
+ * Interface for creating a reader
  */
 public interface Reader
 {

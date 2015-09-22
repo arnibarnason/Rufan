@@ -1,7 +1,8 @@
 package is.ru.honn.rufan.service;
 
 /**
- * Created by arnib on 20/09/15.
+ * Exception which is thrown when an error occurs
+ * within an service
  */
 public class ServiceException extends Exception
 {

@@ -7,7 +7,7 @@ import javafx.beans.Observable;
 import java.util.List;
 
 /**
- * Created by arnib on 20/09/15.
+ * Interface for player service
  */
 public interface PlayerService
 {

@@ -5,7 +5,7 @@ import is.ru.honn.rufan.domain.Team;
 import java.util.List;
 
 /**
- * Created by arnib on 20/09/15.
+ * Interface for team service
  */
 public interface TeamService
 {
