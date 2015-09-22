@@ -49,6 +49,7 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         observerList.add(observer);
 
         reader = readerFactory.getReader("PlayerReader");
+        reader.setURI(getProcessContext().getImportURL());
         msg = readerFactory.getMessageSource("messageSource");
 
         reader.setReadHandler(this);

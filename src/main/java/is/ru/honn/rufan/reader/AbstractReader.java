@@ -11,26 +11,40 @@ import java.util.Locale;
 
 /**
  * Abstract reader which contains helper functions
- * and read function for reading url
+ * and read function for reading uri
  */
 public abstract class AbstractReader implements Reader
 {
     protected ReadHandler readHandler;
+    private String uri;
 
     public abstract Object parse(String content);
 
+    /**
+     * Gets content from uri to read from and parses it
+     * @return List of all players/teams parsed
+     * @throws ReaderException
+     */
     public Object read() throws ReaderException
     {
         ClientRequest CR = new ClientRequest();
-        String content = CR.getRequest("http://olafurandri.com/honn/players.json");
+        String content = CR.getRequest(uri);
         return this.parse(content);
     }
 
+    /**
+     * Set the uri to read from
+     * @param URI to read from
+     */
     public void setURI(String URI)
     {
-
+        this.uri = URI;
     }
 
+    /**
+     * Set the handler
+     * @param readHandler
+     */
     public void setReadHandler(ReadHandler readHandler)
     {
         this.readHandler = readHandler;
