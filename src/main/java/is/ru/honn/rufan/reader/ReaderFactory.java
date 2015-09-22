@@ -39,7 +39,7 @@ public class ReaderFactory
     public MessageSource getMessageSource(String source)
     {
         MessageSource msg;
-        ApplicationContext ctx = new FileSystemXmlApplicationContext("classpath:reader.xml");
+        ApplicationContext ctx = new FileSystemXmlApplicationContext("classpath:app.xml");
         msg = (MessageSource) ctx.getBean(source);
         System.out.println(msg.toString());
         return msg;
