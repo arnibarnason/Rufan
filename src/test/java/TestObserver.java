@@ -26,8 +26,11 @@ public class TestObserver extends TestCase
 
     }
 
+    /**
+     * Test the observer pattern. Make a new player and see if the observer is notified.
+     */
     @Test
-    public void testCountOfNotifications()
+    public void testObserver()
     {
         final List<Position> positions = new ArrayList<Position>() {{
             add(new Position(1, "DEFENDER", "D", 0));

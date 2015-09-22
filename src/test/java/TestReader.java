@@ -30,6 +30,10 @@ public class TestReader extends TestCase
 
     }
 
+    /**
+     * Test if readerFactory reads the reader.xml correctly
+     * @throws ReaderException
+     */
     @Test
     public void testReadXmlWithPlayerReader() throws ReaderException {
         String typeOfReader = "PlayerReader";
@@ -39,6 +43,11 @@ public class TestReader extends TestCase
         assertSame(PlayerReader.class, reader.getClass());
     }
 
+    /**
+     * Test if getReader function returns correct type of reader, read from a bean inside
+     * reader.xml file.
+     * @throws ReaderException
+     */
     @Test
     public void testReadXmlWithTeamReader() throws ReaderException {
         String typeOfReader = "TeamReader";
@@ -49,6 +58,10 @@ public class TestReader extends TestCase
         assertSame(TeamReader.class, reader.getClass());
     }
 
+    /**
+     * Test if trying to get an non-existing readerType results in an exception thrown.
+     * @throws ReaderException
+     */
     @Test(expected = ReaderException.class)
     public void testReadXmlWithWrongReader() throws ReaderException {
         String typeOfReader = "WrongReader";
@@ -58,6 +71,10 @@ public class TestReader extends TestCase
         assertSame(TeamReader.class, reader.getClass());
     }
 
+    /**
+     * Test if an invalid URI results in an exception thrown.
+     * @throws Exception
+     */
     @Test(expected = ReaderException.class)
     public void testAbstractReaderWithWrongURI() throws Exception
     {
@@ -69,7 +86,10 @@ public class TestReader extends TestCase
         reader.read();
     }
 
-
+    /**
+     * Test if setting no readHandler results in an exception thrown.
+     * @throws Exception
+     */
     @Test(expected = ReaderException.class)
     public void testAbstractReaderNoHandler() throws Exception
     {
@@ -81,6 +101,11 @@ public class TestReader extends TestCase
         reader.read();
     }
 
+    /**
+     * Test if the number of lines read match the number of players in the
+     * file players.json, they are 582.
+     * @throws ReaderException
+     */
     @Test
     public void testNumberOfLinesRead() throws ReaderException {
         List<Player> players = new ArrayList<Player>();

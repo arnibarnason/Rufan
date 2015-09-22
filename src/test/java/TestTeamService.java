@@ -28,6 +28,9 @@ public class TestTeamService extends TestCase {
     League league;
     Venue venue;
 
+    /**
+     * Create a venue, season and league and set their attributes.
+     */
     @Before
     public void setup() {
         venue = new Venue();
@@ -48,7 +51,10 @@ public class TestTeamService extends TestCase {
         league.setSeason(season);
     }
 
-    // This test covers both adding a valid team and getting a team that exists.
+    /**
+     * Test if adding a valid team works correctly.
+     * @throws ServiceException
+     */
     @Test
     public void testAddValidTeam() throws ServiceException
     {
@@ -69,6 +75,10 @@ public class TestTeamService extends TestCase {
         assertSame(getTeam, testTeam);
     }
 
+    /**
+     * Test if adding a team with no name results in exception thrown.
+     * @throws ServiceException
+     */
     @Test(expected = ServiceException.class)
     public void testAddTeamNoTeamName() throws ServiceException
     {
@@ -77,6 +87,10 @@ public class TestTeamService extends TestCase {
         service.addTeam(league.getLeagueId(), testTeam);
     }
 
+    /**
+     * Test if adding team with no venue results in exception thrown.
+     * @throws ServiceException
+     */
     @Test(expected = ServiceException.class)
     public void testAddTeamNoVenue() throws ServiceException
     {
@@ -85,6 +99,10 @@ public class TestTeamService extends TestCase {
         service.addTeam(league.getLeagueId(), testTeam);
     }
 
+    /**
+     * Test if adding team with no abbreviation results in exception thrown.
+     * @throws ServiceException
+     */
     @Test(expected = ServiceException.class)
     public void testAddTeamNoAbbreviation() throws ServiceException
     {
@@ -93,6 +111,10 @@ public class TestTeamService extends TestCase {
         service.addTeam(league.getLeagueId(), testTeam);
     }
 
+    /**
+     * Test if adding a team with ID: 0 results in exception thrown.
+     * @throws ServiceException
+     */
     @Test(expected = ServiceException.class)
     public void testAddTeamZeroLeagueID() throws ServiceException
     {
@@ -102,6 +124,10 @@ public class TestTeamService extends TestCase {
 
     }
 
+    /**
+     * Test if adding a team that has already been added results in exception thrown.
+     * @throws ServiceException
+     */
     @Test(expected = ServiceException.class)
     public void testAddTeamThatExists() throws ServiceException
     {
@@ -112,6 +138,10 @@ public class TestTeamService extends TestCase {
 
     }
 
+    /**
+     * Test if getting a team that does not exist returns null.
+     * @throws ServiceException
+     */
    @Test
     public void testGetTeamThatNotExists() throws ServiceException
     {

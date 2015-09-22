@@ -38,7 +38,11 @@ public class TestPlayerService extends TestCase
         team.setVenue(venue);
     }
 
-    // This test covers both adding a valid Player and getting a Player that exists
+    /**
+     * This test covers both adding a valid Player and getting a Player that exists.
+     * Two players made and added, then retrieved again to see if they match the originial.
+     * @throws ServiceException
+     */
     @Test
     public void testAddValidPlayer() throws ServiceException {
 
@@ -60,6 +64,10 @@ public class TestPlayerService extends TestCase
         assertSame(getPlayer2, testPlayer2);
     }
 
+    /**
+     * Test if adding a player that already exists results in exception thrown.
+     * @throws ServiceException
+     */
     @Test(expected = ServiceException.class)
     public void testAddPlayerThatExists() throws ServiceException
     {
@@ -68,7 +76,12 @@ public class TestPlayerService extends TestCase
         service.addPlayer(testPlayer);
         service.addPlayer(testPlayer);
     }
-    // FirstName can be empty or null (update on assignment description 21/9)
+
+    /**
+     * Test if adding a player with no firstName works correctly. Since the data had a flaw in it
+     * there was an option to leave the firstName empty, if it is null, then set it to empty string.
+     * @throws ServiceException
+     */
     @Test
     public void testAddPlayerNoFirstName() throws ServiceException
     {
@@ -90,6 +103,10 @@ public class TestPlayerService extends TestCase
         assertSame(getPlayer2, testPlayer2);
     }
 
+    /**
+     * Test if adding a player with no lastName results in exception thrown.
+     * @throws ServiceException
+     */
     @Test(expected = ServiceException.class)
     public void testAddPlayerNoLastName() throws ServiceException
     {
@@ -105,6 +122,10 @@ public class TestPlayerService extends TestCase
         service.addPlayer(testPlayer2);
     }
 
+    /**
+     * Test if adding a player with teamID: 0 results in exception thrown.
+     * @throws ServiceException
+     */
     @Test(expected = ServiceException.class)
     public void testAddPlayerZeroTeamID() throws ServiceException
     {
@@ -118,6 +139,10 @@ public class TestPlayerService extends TestCase
         service.addPlayer(testPlayer);
     }
 
+    /**
+     * Test if getting an player that does not exist returns null.
+     * @throws ServiceException
+     */
     @Test
     public void testGetPlayerThatFails() throws ServiceException
     {
