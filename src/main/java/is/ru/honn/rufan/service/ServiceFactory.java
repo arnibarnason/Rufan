@@ -21,11 +21,20 @@ public class ServiceFactory
      * @param serviceType string containing name of service type
      * @return type of PlayerService
      */
-    public PlayerService getService(String serviceType)
+    public PlayerService getPlayerService(String serviceType)
     {
         PlayerService service;
         ApplicationContext ctx = new FileSystemXmlApplicationContext("classpath:service.xml");
         service = (PlayerService) ctx.getBean(serviceType);
+        System.out.println(service.toString());
+        return service;
+    }
+
+    public TeamService getTeamService(String serviceType)
+    {
+        TeamService service;
+        ApplicationContext ctx = new FileSystemXmlApplicationContext("classpath:service.xml");
+        service = (TeamService) ctx.getBean(serviceType);
         System.out.println(service.toString());
         return service;
     }

@@ -1,4 +1,7 @@
+import is.ru.honn.rufan.domain.Player;
+import is.ru.honn.rufan.process.PlayerImportProcess;
 import is.ru.honn.rufan.reader.*;
+import is.ru.honn.rufan.service.PlayerServiceStub;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,6 +10,9 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by arnib on 20/09/15.
@@ -74,5 +80,27 @@ public class TestReader extends TestCase
         reader.setURI("http://olafurandri.com/honn/players.json");
 
         reader.read();
+    }
+
+    @Test
+    public void testNumberOfLinesRead()
+    {
+        List<Player> players = new ArrayList<Player>();
+        String typeOfReader = "PlayerReader";
+
+        Reader reader = readerFactory.getReader(typeOfReader);
+        reader.setURI("http://olafurandri.com/honn/players.json");
+        PlayerImportProcess playerImportProcess = new PlayerImportProcess();
+        reader.setReadHandler(playerImportProcess);
+        playerImportProcess.setService(new PlayerServiceStub());
+
+        try
+        {
+            players = (List<Player>) reader.read();
+        } catch(ReaderException r)
+        {
+            assertTrue(false);
+        }
+        assertEquals(582, players.size());
     }
 }

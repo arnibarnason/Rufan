@@ -42,7 +42,7 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         ReaderFactory readerFactory = new ReaderFactory();
 
         // Get type of service to use
-        playerService = serviceFactory.getService("PlayerStub");
+        playerService = serviceFactory.getPlayerService("PlayerStub");
 
         // Get the observer to add to observerlist
         Observer observer = observerFactory.getObserver("playerObserver");
@@ -100,7 +100,7 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         }
         catch (ServiceException e)
         {
-            e.printStackTrace();
+            log.info("Error adding player" + e.getMessage());
         }
     }
 
@@ -114,5 +114,15 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         {
             o.update(object);
         }
+    }
+
+    /**
+     * Helper for testing if the reader reads the file correctly,
+     * only uset for unit testing.
+     * @param service The service to set.
+     */
+    public void setService(PlayerService service)
+    {
+        this.playerService = service;
     }
 }
