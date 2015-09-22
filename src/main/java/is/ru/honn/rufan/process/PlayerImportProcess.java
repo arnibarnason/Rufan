@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
- * Created by arnib on 20/09/15.
+ *
  */
 public class PlayerImportProcess extends RuAbstractProcess implements ReadHandler
 {
