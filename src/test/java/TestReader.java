@@ -1,7 +1,4 @@
-import is.ru.honn.rufan.reader.PlayerReader;
-import is.ru.honn.rufan.reader.Reader;
-import is.ru.honn.rufan.reader.ReaderFactory;
-import is.ru.honn.rufan.reader.TeamReader;
+import is.ru.honn.rufan.reader.*;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,15 +52,27 @@ public class TestReader extends TestCase
 
         assertSame(TeamReader.class, reader.getClass());
     }
-    /*
-    @Test(expected = NoSuchBeanDefinitionException.class)
-    public void testReadXmlWithWrongReader()
+
+    @Test(expected = ReaderException.class)
+    public void testAbstractReaderWithWrongURI() throws Exception
     {
-        String typeOfReader = "WrongReader";
+        String typeOfReader = "PlayerReader";
 
         Reader reader = readerFactory.getReader(typeOfReader);
+        reader.setURI("NOURI");
 
-        assertSame(TeamReader.class, reader.getClass());
-    }*/
+        reader.read();
+    }
 
+
+    @Test(expected = ReaderException.class)
+    public void testAbstractReaderNoHandler() throws Exception
+    {
+        String typeOfReader = "PlayerReader";
+
+        Reader reader = readerFactory.getReader(typeOfReader);
+        reader.setURI("http://olafurandri.com/honn/players.json");
+
+        reader.read();
+    }
 }
