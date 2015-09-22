@@ -1,6 +1,7 @@
 package is.ru.honn.rufan.process;
 
 import is.ru.honn.rufan.domain.Player;
+import is.ru.honn.rufan.observers.PlayerObserver;
 import is.ru.honn.rufan.reader.ReadHandler;
 import is.ru.honn.rufan.reader.Reader;
 import is.ru.honn.rufan.reader.ReaderException;
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
 /**
  * Created by arnib on 20/09/15.
  */
-public class    PlayerImportProcess extends RuAbstractProcess implements ReadHandler
+public class PlayerImportProcess extends RuAbstractProcess implements ReadHandler
 {
     Reader reader;
     Logger log = Logger.getLogger(PlayerImportProcess.class.getName());
@@ -25,7 +26,8 @@ public class    PlayerImportProcess extends RuAbstractProcess implements ReadHan
     @Override
     public void beforeProcess()
     {
-        //playerService.addObserver(this);
+        PlayerObserver observer = new PlayerObserver();
+        playerService.addObserver(observer);
         ReaderFactory factory = new ReaderFactory();
         reader = factory.getReader("PlayerReader");
         reader.setReadHandler(this);
