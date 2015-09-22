@@ -1,6 +1,7 @@
 package is.ru.honn.rufan.process;
 
 import is.ru.honn.rufan.domain.Player;
+import is.ru.honn.rufan.observers.Observer;
 import is.ru.honn.rufan.observers.ObserverFactory;
 import is.ru.honn.rufan.reader.ReadHandler;
 import is.ru.honn.rufan.reader.Reader;
@@ -11,7 +12,7 @@ import is.ru.honn.rufan.service.ServiceException;
 import is.ruframework.process.RuAbstractProcess;
 import org.springframework.context.MessageSource;
 
-import java.util.Observer;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
@@ -23,6 +24,7 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
     Logger log = Logger.getLogger(PlayerImportProcess.class.getName());
     private PlayerServiceStub playerService = new PlayerServiceStub();
     private ObserverFactory observerFactory = new ObserverFactory();
+    private ArrayList<Observer> observerList = new ArrayList<Observer>();
     MessageSource msg;
 
     @Override
@@ -31,7 +33,8 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         Observer observer = observerFactory.getObserver("playerObserver");
         //Observer observer1 = observerFactory.getObserver("teamObserver");
         // /PlayerObserver observer = new PlayerObserver();
-        playerService.addObserver(observer);
+        //playerService.addObserver(observer);
+        observerList.add(observer);
         ReaderFactory factory = new ReaderFactory();
         reader = factory.getReader("PlayerReader");
         msg = factory.getMessageSource("messageSource");
@@ -64,10 +67,19 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         try
         {
             playerService.addPlayer((Player) object);
+            notifyObservers(object);
         }
         catch (ServiceException e)
         {
             e.printStackTrace();
+        }
+    }
+
+    public void notifyObservers(Object object)
+    {
+        for(Observer o : observerList)
+        {
+            o.update(object);
         }
     }
 }

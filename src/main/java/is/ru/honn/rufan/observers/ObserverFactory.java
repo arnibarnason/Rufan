@@ -3,8 +3,6 @@ package is.ru.honn.rufan.observers;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-import java.util.Observer;
-
 /**
  * Created by arnib on 22/09/15.
  */

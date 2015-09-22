@@ -5,14 +5,13 @@ import is.ru.honn.rufan.domain.Team;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 import java.util.logging.Logger;
 
 /**
  * Created by arnib on 20/09/15.
  * A service stub replicating a database.
  */
-public class PlayerServiceStub extends Observable implements PlayerService
+public class PlayerServiceStub implements PlayerService
 {
     private List<Player> playerList = new ArrayList<Player>();
     Logger log = Logger.getLogger(PlayerServiceStub.class.getName());
@@ -56,8 +55,7 @@ public class PlayerServiceStub extends Observable implements PlayerService
         playerList.add(player);
         String msg = "New player added";
         log.info(msg);
-        setChanged();
-        notifyObservers(player);
+
         return playerList.size() - 1;
     }
 

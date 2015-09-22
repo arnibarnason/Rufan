@@ -9,21 +9,9 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  */
 public class ReaderFactory
 {
-    //private ReaderFactory factory = new ReaderFactory();
-    //Reader reader = factory.getReader("playerReader");
-
-    //reader.setReadHandler(this);
-    //reader.read();
-
     public ReaderFactory()
     {
     }
-
-//    public static ReaderFactory getReaderFactory()
-//    {
-//        // Not correct
-//        return new ReaderFactory();
-//    }
 
     public Reader getReader(String readerType)
     {
