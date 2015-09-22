@@ -45,6 +45,7 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
 
         // Get the observer to add to observerlist
         Observer observer = observerFactory.getObserver("playerObserver");
+
         observerList.add(observer);
 
         reader = readerFactory.getReader("PlayerReader");

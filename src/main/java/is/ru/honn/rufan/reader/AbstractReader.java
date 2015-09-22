@@ -1,6 +1,8 @@
 package is.ru.honn.rufan.reader;
 
 import org.json.simple.JSONObject;
+
+import javax.ws.rs.ProcessingException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,9 +29,22 @@ public abstract class AbstractReader implements Reader
      */
     public Object read() throws ReaderException
     {
+        if(readHandler == null)
+        {
+            throw new ReaderException();
+        }
+
         ClientRequest CR = new ClientRequest();
-        String content = CR.getRequest(uri);
-        return this.parse(content);
+
+        try
+        {
+            String content = CR.getRequest(uri);
+            return this.parse(content);
+
+        } catch (ProcessingException p)
+        {
+            throw new ReaderException();
+        }
     }
 
     /**

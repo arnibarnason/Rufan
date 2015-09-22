@@ -26,6 +26,7 @@ public class ReaderFactory
         Reader reader;
         ApplicationContext ctx = new FileSystemXmlApplicationContext("classpath:reader.xml");
         reader = (Reader) ctx.getBean(readerType);
+
         System.out.println(reader.toString());
         return reader;
     }
