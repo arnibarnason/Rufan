@@ -14,6 +14,7 @@ import is.ruframework.process.RuAbstractProcess;
 import org.springframework.context.MessageSource;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 /**
@@ -23,15 +24,16 @@ import java.util.logging.Logger;
  */
 public class PlayerImportProcess extends RuAbstractProcess implements ReadHandler
 {
-
     Reader reader;
     Logger log = Logger.getLogger(PlayerImportProcess.class.getName());
     private PlayerService playerService;
     private ArrayList<Observer> observerList = new ArrayList<Observer>();
     MessageSource msg;
+    Locale languageTag = Locale.forLanguageTag("en");
+
 
     /**
-     * Called before process starts
+     * Called before process starts and sets up data for process
      */
     @Override
     public void beforeProcess()
@@ -43,7 +45,7 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         // Get type of service to use
         playerService = serviceFactory.getPlayerService("PlayerStub");
 
-        // Get the observer to add to observerlist
+        // Get the observer to add to observer list
         Observer observer = observerFactory.getObserver("playerObserver");
 
         observerList.add(observer);
@@ -53,7 +55,8 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         msg = readerFactory.getMessageSource("messageSource");
 
         reader.setReadHandler(this);
-        log.info("start process");
+
+        log.info(msg.getMessage("processbefore", new Object[]{this.getClass().getName()}, languageTag));
     }
 
     /**
@@ -62,7 +65,7 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
     @Override
     public void afterProcess()
     {
-        log.info("after process");
+        log.info(msg.getMessage("processstartdone", new Object[] {this.getClass().getName()}, languageTag));
     }
 
     /**
