@@ -2,7 +2,6 @@ package is.ru.honn.rufan.process;
 
 import is.ru.honn.rufan.domain.Player;
 import is.ru.honn.rufan.observers.ObserverFactory;
-import is.ru.honn.rufan.observers.PlayerObserver;
 import is.ru.honn.rufan.reader.ReadHandler;
 import is.ru.honn.rufan.reader.Reader;
 import is.ru.honn.rufan.reader.ReaderException;
