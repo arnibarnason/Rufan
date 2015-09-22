@@ -1,14 +1,17 @@
 package is.ru.honn.rufan.observers;
 
-import java.util.Observable;
-import java.util.Observer;
-
 /**
- * Created by arnib on 22/09/15.
+ * TeamObserver which prints all data from team object
+ * argument from Observable class
  */
 public class TeamObserver implements Observer
 {
-    public void update(Observable o, Object arg)
+    /**
+     * Update function called by observable class which
+     * is notifying all its observers
+     * @param arg Team object
+     */
+    public void update(Object arg)
     {
         System.out.println("TeamPrinting");
     }

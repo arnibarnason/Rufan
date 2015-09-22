@@ -1,7 +1,9 @@
 package is.ru.honn.rufan.observers;
 
 /**
- * Created by arnib on 22/09/15.
+ * Observer interface for those who want
+ * to be able to be notified of changes from
+ * observable classes
  */
 public interface Observer
 {

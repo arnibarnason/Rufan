@@ -7,8 +7,10 @@ import is.ru.honn.rufan.reader.ReadHandler;
 import is.ru.honn.rufan.reader.Reader;
 import is.ru.honn.rufan.reader.ReaderException;
 import is.ru.honn.rufan.reader.ReaderFactory;
+import is.ru.honn.rufan.service.PlayerService;
 import is.ru.honn.rufan.service.PlayerServiceStub;
 import is.ru.honn.rufan.service.ServiceException;
+import is.ru.honn.rufan.service.ServiceFactory;
 import is.ruframework.process.RuAbstractProcess;
 import org.springframework.context.MessageSource;
 
@@ -16,43 +18,61 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
- *
+ * PlayerImportProcess extends RuAbstractProcess which contains the
+ * main function. Class implements ReadHandler's read function which
+ * accepts objects created by reader in it's parse function.
  */
 public class PlayerImportProcess extends RuAbstractProcess implements ReadHandler
 {
+
     Reader reader;
     Logger log = Logger.getLogger(PlayerImportProcess.class.getName());
-    private PlayerServiceStub playerService = new PlayerServiceStub();
-    private ObserverFactory observerFactory = new ObserverFactory();
+    private PlayerService playerService;
     private ArrayList<Observer> observerList = new ArrayList<Observer>();
     MessageSource msg;
 
+    /**
+     * Called before process starts
+     */
     @Override
     public void beforeProcess()
     {
+        ObserverFactory observerFactory = new ObserverFactory();
+        ServiceFactory serviceFactory = new ServiceFactory();
+        ReaderFactory readerFactory = new ReaderFactory();
+
+        // Get type of service to use
+        playerService = serviceFactory.getService("PlayerStub");
+
+        // Get the observer to add to observerlist
         Observer observer = observerFactory.getObserver("playerObserver");
-        //Observer observer1 = observerFactory.getObserver("teamObserver");
-        // /PlayerObserver observer = new PlayerObserver();
-        //playerService.addObserver(observer);
         observerList.add(observer);
-        ReaderFactory factory = new ReaderFactory();
-        reader = factory.getReader("PlayerReader");
-        msg = factory.getMessageSource("messageSource");
+
+        reader = readerFactory.getReader("PlayerReader");
+        msg = readerFactory.getMessageSource("messageSource");
+
         reader.setReadHandler(this);
         log.info("start process");
     }
 
+    /**
+     * Called after process has finished
+     */
     @Override
     public void afterProcess()
     {
-        super.afterProcess();
+        log.info("after process");
     }
 
+    /**
+     * Starts the process
+     */
     @Override
     public void startProcess()
     {
         try
         {
+            log.info("start process");
             reader.read();
         }
         catch (ReaderException e)
@@ -62,6 +82,13 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         }
     }
 
+    /**
+     * Implemented from ReadHandler to manage
+     * objects created in parse function of reader.
+     * Notifies observers of each object added.
+     * @param count Lines read
+     * @param object The object to add
+     */
     public void read(int count, Object object)
     {
         try
@@ -75,6 +102,10 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         }
     }
 
+    /**
+     * Send notification to all observers in the observer list
+     * @param object Object created
+     */
     public void notifyObservers(Object object)
     {
         for(Observer o : observerList)

@@ -4,10 +4,16 @@ import is.ru.honn.rufan.domain.Player;
 import is.ru.honn.rufan.domain.Position;
 
 /**
- * Created by arnib on 22/09/15.
+ * PlayerObserver which prints all data from player object
+ * argument from Observable class (PlayerImportProcess)
  */
 public class PlayerObserver implements Observer
 {
+    /**
+     * Update function called by observable class which
+     * is notifying all its observers
+     * @param arg Player object
+     */
     public void update(Object arg)
     {
         Player p = (Player) arg;
