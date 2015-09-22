@@ -1,0 +1,32 @@
+package is.ru.honn.rufan.service;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
+
+/**
+ * Factory gets type of service to use from service.xml
+ * and returns it.
+ */
+public class ServiceFactory
+{
+    /**
+     * Empty constructor
+     */
+    public ServiceFactory()
+    {
+    }
+
+    /**
+     * Gets serviceType from service.xml
+     * @param serviceType string containing name of service type
+     * @return type of PlayerService
+     */
+    public PlayerService getService(String serviceType)
+    {
+        PlayerService service;
+        ApplicationContext ctx = new FileSystemXmlApplicationContext("classpath:service.xml");
+        service = (PlayerService) ctx.getBean(serviceType);
+        System.out.println(service.toString());
+        return service;
+    }
+}

@@ -5,14 +5,22 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 /**
- * Created by arnib on 20/09/15.
+ * Factory that gets correct reader and message source from reader.xml
  */
 public class ReaderFactory
 {
+    /**
+     * Empty constructor
+     */
     public ReaderFactory()
     {
     }
 
+    /**
+     * Gets type of reader from reader.xml
+     * @param readerType String containing name of reader type
+     * @return type of Reader class
+     */
     public Reader getReader(String readerType)
     {
         Reader reader;
@@ -22,6 +30,11 @@ public class ReaderFactory
         return reader;
     }
 
+    /**
+     * Gets message source from reader.xml
+     * @param source name of message source requested
+     * @return message source
+     */
     public MessageSource getMessageSource(String source)
     {
         MessageSource msg;

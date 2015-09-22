@@ -10,7 +10,8 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 /**
- * Created by arnib on 20/09/15.
+ * Abstract reader which contains helper functions
+ * and read function for reading url
  */
 public abstract class AbstractReader implements Reader
 {
@@ -23,18 +24,6 @@ public abstract class AbstractReader implements Reader
         ClientRequest CR = new ClientRequest();
         String content = CR.getRequest("http://olafurandri.com/honn/players.json");
         return this.parse(content);
-//        JSONParser parser = new JSONParser();
-//        try {
-//            Object obj = parser.parse(new FileReader(URI));
-//            JSONObject jsonObject = (JSONObject) obj;
-//            return this.parse(jsonObject.toJSONString());
-//        } catch (ParseException e) {
-//            throw new ReaderException();
-//        } catch (FileNotFoundException e) {
-//            throw new ReaderException();
-//        } catch (IOException e) {
-//            throw new ReaderException();
-//        }
     }
 
     public void setURI(String URI)
