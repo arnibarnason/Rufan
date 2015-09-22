@@ -1,6 +1,8 @@
 package is.ru.honn.rufan.domain;
 
-
+/**
+ * POJO for Venue information, getters and setters for attributes.
+ */
 public class Venue
 {
   private int venueId;

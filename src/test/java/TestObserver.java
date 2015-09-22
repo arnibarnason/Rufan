@@ -1,9 +1,6 @@
 import is.ru.honn.rufan.domain.*;
-import is.ru.honn.rufan.observers.*;
 import is.ru.honn.rufan.observers.Observer;
 import is.ru.honn.rufan.process.PlayerImportProcess;
-import is.ru.honn.rufan.reader.Reader;
-import is.ru.honn.rufan.reader.ReaderFactory;
 import is.ru.honn.rufan.service.PlayerServiceStub;
 import junit.framework.TestCase;
 import org.junit.Before;
@@ -48,5 +45,4 @@ public class TestObserver extends TestCase
 
         playerImportProcess.read(1, testPlayer);
     }
-
 }

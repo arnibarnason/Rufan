@@ -1,6 +1,8 @@
 package is.ru.honn.rufan.domain;
 
-
+/**
+ * POJO for Team information, getters and setters for attributes.
+ */
 public class Team
 {
   private int teamId;

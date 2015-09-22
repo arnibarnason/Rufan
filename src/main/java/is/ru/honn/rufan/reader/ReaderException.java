@@ -1,7 +1,7 @@
 package is.ru.honn.rufan.reader;
 
 /**
- * ReaderException is thrown when error occurs when
+ * ReaderException is thrown if an error occurs when
  * reading content from a file and parsing it into object
  */
 public class ReaderException extends Exception

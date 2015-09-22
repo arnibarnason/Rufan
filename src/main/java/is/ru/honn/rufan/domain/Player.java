@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by us on 20/09/15.
+ * POJO for Player information, getters and setters for attributes.
  */
 public class Player
 {

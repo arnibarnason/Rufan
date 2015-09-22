@@ -37,6 +37,7 @@ public class TestPlayerService extends TestCase
         team.setLocation("Liverpool");
         team.setVenue(venue);
     }
+
     // This test covers both adding a valid Player and getting a Player that exists
     @Test
     public void testAddValidPlayer() throws ServiceException {

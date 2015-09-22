@@ -1,8 +1,10 @@
 package is.ru.honn.rufan.domain;
 
-
 import java.util.ArrayList;
 
+/**
+ * POJO for Season information, getters and setters for attributes.
+ */
 public class Season
 {
   private int season;

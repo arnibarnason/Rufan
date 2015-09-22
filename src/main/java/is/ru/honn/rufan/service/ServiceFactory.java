@@ -1,5 +1,7 @@
 package is.ru.honn.rufan.service;
 
+import is.ru.honn.rufan.reader.ReaderException;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
@@ -20,22 +22,40 @@ public class ServiceFactory
      * Gets serviceType from service.xml
      * @param serviceType string containing name of service type
      * @return type of PlayerService
+     * @throws ReaderException
      */
-    public PlayerService getPlayerService(String serviceType)
+    public PlayerService getPlayerService(String serviceType) throws ReaderException
     {
         PlayerService service;
         ApplicationContext ctx = new FileSystemXmlApplicationContext("classpath:service.xml");
-        service = (PlayerService) ctx.getBean(serviceType);
-        System.out.println(service.toString());
-        return service;
+
+        try
+        {
+            service = (PlayerService) ctx.getBean(serviceType);
+            return service;
+        } catch (NoSuchBeanDefinitionException e)
+        {
+            throw new ReaderException(e.getMessage());
+        }
     }
 
-    public TeamService getTeamService(String serviceType)
+    /**
+     * Gets serviceType from service.xml
+     * @param serviceType string containing name of service type
+     * @return type of TeamService
+     * @throws ReaderException
+     */
+    public TeamService getTeamService(String serviceType) throws ReaderException
     {
         TeamService service;
         ApplicationContext ctx = new FileSystemXmlApplicationContext("classpath:service.xml");
-        service = (TeamService) ctx.getBean(serviceType);
-        System.out.println(service.toString());
-        return service;
+        try
+        {
+            service = (TeamService) ctx.getBean(serviceType);
+            return service;
+        } catch (NoSuchBeanDefinitionException e)
+        {
+            throw new ReaderException(e.getMessage());
+        }
     }
 }

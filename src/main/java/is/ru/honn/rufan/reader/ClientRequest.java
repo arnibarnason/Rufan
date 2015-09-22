@@ -70,5 +70,4 @@ public class ClientRequest
         }
         return content.toString();
     }
-
 }

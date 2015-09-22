@@ -1,12 +1,10 @@
 package is.ru.honn.rufan.observers;
 
 import is.ru.honn.rufan.domain.Player;
-import is.ru.honn.rufan.domain.Position;
-
 import java.util.logging.Logger;
 
 /**
- * PlayerObserver which prints all data from player object
+ * PlayerObserver which logs data from player object
  * argument from Observable class (PlayerImportProcess)
  */
 

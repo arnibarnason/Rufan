@@ -1,11 +1,15 @@
 package is.ru.honn.rufan.observers;
 
+import java.util.logging.Logger;
+
 /**
- * TeamObserver which prints all data from team object
- * argument from Observable class
+ * TeamObserver which logs data from team object
+ * argument from Observable class. Not necessary for assignment 2.
  */
 public class TeamObserver implements Observer
 {
+    Logger log = Logger.getLogger(PlayerObserver.class.getName());
+
     /**
      * Update function called by observable class which
      * is notifying all its observers
@@ -13,6 +17,6 @@ public class TeamObserver implements Observer
      */
     public void update(Object arg)
     {
-        System.out.println("TeamPrinting");
+        log.info("Team info");
     }
 }

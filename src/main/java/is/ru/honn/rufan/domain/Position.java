@@ -1,7 +1,7 @@
 package is.ru.honn.rufan.domain;
 
 /**
- * Created by arnib on 20/09/15.
+ * POJO for Position information, getters and setters for attributes.
  */
 public class Position
 {

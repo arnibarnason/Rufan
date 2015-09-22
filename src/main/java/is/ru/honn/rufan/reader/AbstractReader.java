@@ -1,7 +1,6 @@
 package is.ru.honn.rufan.reader;
 
 import org.json.simple.JSONObject;
-
 import javax.ws.rs.ProcessingException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -13,7 +12,7 @@ import java.util.Locale;
 
 /**
  * Abstract reader which contains helper functions
- * and read function for reading uri
+ * and read function for reading URI.
  */
 public abstract class AbstractReader implements Reader
 {

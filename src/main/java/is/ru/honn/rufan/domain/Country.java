@@ -1,7 +1,7 @@
 package is.ru.honn.rufan.domain;
 
 /**
- * POJO for Country information
+ * POJO for Country information, getters and setters for attributes.
  */
 public class Country
 {

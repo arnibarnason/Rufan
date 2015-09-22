@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * Created by arnib on 20/09/15.
+ * JUnit tests for testing the reader
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:app-test-stub.xml")
@@ -30,8 +31,7 @@ public class TestReader extends TestCase
     }
 
     @Test
-    public void testReadXmlWithPlayerReader()
-    {
+    public void testReadXmlWithPlayerReader() throws ReaderException {
         String typeOfReader = "PlayerReader";
 
         Reader reader = readerFactory.getReader(typeOfReader);
@@ -40,18 +40,17 @@ public class TestReader extends TestCase
     }
 
     @Test
-    public void testReadXmlWithTeamReader()
-    {
+    public void testReadXmlWithTeamReader() throws ReaderException {
         String typeOfReader = "TeamReader";
 
-        Reader reader = readerFactory.getReader(typeOfReader);
+        Reader reader = null;
+        reader = readerFactory.getReader(typeOfReader);
 
         assertSame(TeamReader.class, reader.getClass());
     }
 
-    @Test(expected = NoSuchBeanDefinitionException.class)
-    public void testReadXmlWithWrongReader()
-    {
+    @Test(expected = ReaderException.class)
+    public void testReadXmlWithWrongReader() throws ReaderException {
         String typeOfReader = "WrongReader";
 
         Reader reader = readerFactory.getReader(typeOfReader);
@@ -83,8 +82,7 @@ public class TestReader extends TestCase
     }
 
     @Test
-    public void testNumberOfLinesRead()
-    {
+    public void testNumberOfLinesRead() throws ReaderException {
         List<Player> players = new ArrayList<Player>();
         String typeOfReader = "PlayerReader";
 

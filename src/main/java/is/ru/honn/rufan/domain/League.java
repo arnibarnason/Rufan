@@ -1,5 +1,8 @@
 package is.ru.honn.rufan.domain;
 
+/**
+ * POJO for League information, getters and setters for attributes.
+ */
 public class League
 {
   private int leagueId;

@@ -1,5 +1,7 @@
 package is.ru.honn.rufan.observers;
 
+import is.ru.honn.rufan.reader.ReaderException;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
@@ -18,15 +20,19 @@ public class ObserverFactory
 
     /**
      * Get the type of observer
-     * @param observerType String contining name of observer type to get
+     * @param observerType String containing name of observer type to get
      * @return type of Observer
      */
-    public Observer getObserver(String observerType)
-    {
+    public Observer getObserver(String observerType) throws ReaderException {
         Observer observer;
         ApplicationContext ctx = new FileSystemXmlApplicationContext("classpath:observer.xml");
-        observer = (Observer) ctx.getBean(observerType);
-        System.out.println(observer.toString());
-        return observer;
+        try
+        {
+            observer = (Observer) ctx.getBean(observerType);
+            return observer;
+        } catch(NoSuchBeanDefinitionException e)
+        {
+            throw new ReaderException(e.getMessage());
+        }
     }
 }

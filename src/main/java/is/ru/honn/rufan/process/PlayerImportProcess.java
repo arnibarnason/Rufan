@@ -29,8 +29,7 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
     private PlayerService playerService;
     private ArrayList<Observer> observerList = new ArrayList<Observer>();
     MessageSource msg;
-    Locale languageTag = Locale.forLanguageTag("en");
-
+    Locale languageTag = Locale.forLanguageTag("is");
 
     /**
      * Called before process starts and sets up data for process
@@ -43,16 +42,33 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         ReaderFactory readerFactory = new ReaderFactory();
 
         // Get type of service to use
-        playerService = serviceFactory.getPlayerService("PlayerStub");
+        try {
+            playerService = serviceFactory.getPlayerService("PlayerStub");
+        } catch (ReaderException e) {
+            log.info(e.getMessage());
+        }
 
         // Get the observer to add to observer list
-        Observer observer = observerFactory.getObserver("playerObserver");
+        Observer observer = null;
+        try {
+            observer = observerFactory.getObserver("playerObserver");
+        } catch (ReaderException e) {
+            log.info(e.getMessage());
+        }
 
         observerList.add(observer);
 
-        reader = readerFactory.getReader("PlayerReader");
+        try {
+            reader = readerFactory.getReader("PlayerReader");
+        } catch (ReaderException e) {
+            log.info(e.getMessage());
+        }
         reader.setURI(getProcessContext().getImportURL());
-        msg = readerFactory.getMessageSource("messageSource");
+        try {
+            msg = readerFactory.getMessageSource("messageSource");
+        } catch (ReaderException e) {
+            log.info(e.getMessage());
+        }
 
         reader.setReadHandler(this);
 
@@ -128,11 +144,19 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
         this.playerService = service;
     }
 
+    /**
+     * Adds an observer to the list of observers
+     * @param o The observer to be added to the list
+     */
     public void addObserver(Observer o)
     {
         observerList.add(o);
     }
 
+    /**
+     * Removes an observer from the list of observers.
+     * @param o The observer to be removed
+     */
     public void removeObserver(Object o)
     {
         observerList.remove(o);
