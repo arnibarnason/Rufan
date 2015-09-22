@@ -127,4 +127,14 @@ public class PlayerImportProcess extends RuAbstractProcess implements ReadHandle
     {
         this.playerService = service;
     }
+
+    public void addObserver(Observer o)
+    {
+        observerList.add(o);
+    }
+
+    public void removeObserver(Object o)
+    {
+        observerList.remove(o);
+    }
 }
