@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  * Created by arnib on 20/09/1
  * A service stub replicating a database.
  */
-public class PlayerServiceStub implements PlayerService
+public class PlayerServiceStub extends AbstractPlayerService
 {
     private List<Player> playerList = new ArrayList<Player>();
     Logger log = Logger.getLogger(PlayerServiceStub.class.getName());
@@ -51,6 +51,7 @@ public class PlayerServiceStub implements PlayerService
         playerList.add(player);
         String msg = "New player added";
         log.info(msg);
+        notifyObservers(player);
 
         return playerList.size() - 1;
     }

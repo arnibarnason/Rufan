@@ -39,8 +39,9 @@ public class TestObserver extends TestCase
         final Player testPlayer = new Player(1, "Gunnar", "Kjartansson", 193, 97, null, country, 1, positions);
 
         PlayerImportProcess playerImportProcess = new PlayerImportProcess();
-        playerImportProcess.setService(new PlayerServiceStub());
-        playerImportProcess.addObserver(new Observer() {
+        PlayerServiceStub playerServiceStub = new PlayerServiceStub();
+        playerImportProcess.setService(playerServiceStub);
+        playerServiceStub.addObserver(new Observer() {
             public void update(Object object) {
                 assertEquals(testPlayer, object);
             }

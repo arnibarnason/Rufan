@@ -1,12 +1,14 @@
 package is.ru.honn.rufan.service;
 
 import is.ru.honn.rufan.domain.Player;
+import is.ru.honn.rufan.observers.Subject;
+
 import java.util.List;
 
 /**
  * Interface for player service
  */
-public interface PlayerService
+public interface PlayerService extends Subject
 {
     Player getPlayer(int playerId);
     List<Player> getPlayers(int teamId);
