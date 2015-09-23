@@ -7,4 +7,5 @@
        <bean id="teamService" class="is.ru.honn.rufan.service.TeamServiceStub"/>
        <bean id="readerFactory" class="is.ru.honn.rufan.reader.ReaderFactory"/>
        <bean id="playerObserver" class="is.ru.honn.rufan.observers.PlayerObserver"/>
+       <bean id="service" class="is.ru.honn.rufan.service.PlayerServiceStub"/>
 </beans>

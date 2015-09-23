@@ -6,8 +6,8 @@ package is.ru.honn.rufan.observers;
  */
 public interface Subject
 {
-    public void addObserver( Observer o );
-    public void removeObserver( Observer o );
-    public void notifyObservers(Object object);
+    void addObserver( Observer o );
+    void removeObserver( Observer o );
+    void notifyObservers(Object object);
 }
 
