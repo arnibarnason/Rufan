@@ -1,7 +1,8 @@
 package is.ru.honn.rufan.observers;
 
 /**
- * Created by arnib on 23/09/15.
+ * Interface for subjects so they can be observed
+ * by observer classes
  */
 public interface Subject
 {

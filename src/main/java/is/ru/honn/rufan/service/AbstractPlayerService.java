@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by arnib on 23/09/15.
+ * Abstract player service class that implements the Subject part of
+ * Player service interface so it can be observed by observers
  */
 public abstract class AbstractPlayerService implements PlayerService
 {
